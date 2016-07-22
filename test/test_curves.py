@@ -168,5 +168,23 @@ class TestCurves(TestCase):
         expected = data["ListOfDiscountFactor"]
         self.assertListEqual(observed, expected)
 
+    def test_flat_forward(self):
+        asof_date = "7/22/2016"
+        data = [{
+            F.FORWARD_RATE.id: 0.01,
+            F.ASOF_DATE.id: asof_date,
+            F.DISCOUNT_BASIS.id: "30/360",
+            F.CURRENCY.id: "USD",
+            F.OBJECT_ID.id: "USD.Flat.Curve",
+            F.TEMPLATE.id: T.TS_YIELD_FLAT
+        }]
+
+        res = Controller(data)
+        res.process(asof_date)
+        curve = res.object("USD.Flat.Curve")
+        observed = [curve.discount(d) for d in [0.0, 0.25, 0.5, 1.0]]
+        expected = [1.0, 0.99750312239746, 0.9950124791926824, 0.9900498337491681]
+        self.assertListEqual(observed, expected)
+
 
 

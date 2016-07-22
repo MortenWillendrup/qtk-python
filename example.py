@@ -16,7 +16,7 @@ data = [
     {
         F.OBJECT_ID.id: "BondEngine",
         F.DISCOUNT_CURVE.id: "->USD.Zero.Curve",
-        F.TEMPLATE.id: T.ENG_BOND_DISCOUNTING.id},
+        F.TEMPLATE.id: T.ENGINE_BOND_DISCOUNTING.id},
     {
         F.ASOF_DATE.id: '2016-01-15',
         F.COUPON.id: 0.06,

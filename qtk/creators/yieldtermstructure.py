@@ -190,7 +190,32 @@ class DiscountCurveCreator(CreatorBase):
 
 class FlatForwardCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_FLAT]
-    _req_fields = [F.ASOF_DATE]
+    _req_fields = [F.FORWARD_RATE, F.DISCOUNT_BASIS]
+    _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS, F.SETTLEMENT_CALENDAR, F.COMPOUNDING, F.COMPOUNDING_FREQ]
 
     def _create(self, asof_date):
-        pass
+        basis = self[F.DISCOUNT_BASIS]
+        compounding = self.get(F.COMPOUNDING, ql.Continuous)
+        compound_freq = self.get(F.COMPOUNDING_FREQ, ql.Annual)
+        forward = self[F.FORWARD_RATE]
+        forward_quote = ql.QuoteHandle(ql.SimpleQuote(forward))
+        asof_date = self.get(F.ASOF_DATE)
+        if asof_date is None:
+            settle_days = self.get(F.SETTLEMENT_DAYS)
+            calendar = self.get(F.SETTLEMENT_CALENDAR)
+            return ql.FlatForward(
+                settle_days,
+                calendar,
+                forward_quote,
+                basis,
+                compounding,
+                compound_freq
+            )
+        else:
+            return ql.FlatForward(
+                asof_date,
+                forward_quote,
+                basis,
+                compounding,
+                compound_freq
+            )

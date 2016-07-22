@@ -53,8 +53,11 @@ class Template(object):
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
 
     # All Engines
-    ENG_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
+    ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
 
     # Time Module
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)
+
+    # Market Report
+    REPORT_BOND_MARKET = GenericTemplate("Market", C.REPORT, C.BOND)
 

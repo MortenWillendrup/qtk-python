@@ -60,6 +60,7 @@ class Field(object):
     EXCOUPON_END_OF_MONTH = FieldName("Ex Coupon End Of Month", "Ex Coupon End Of Month", D.BOOL)
     EXTRAPOLATION = FieldName("Extrapolation", "Enable Extrapolation", D.BOOL)
     FACE_AMOUNT = FieldName("Face Amount", "Face amount", D.FLOAT)
+    FORWARD_RATE = FieldName("Forward Rate", "Forward rate from an yield curve in decimal", D.FLOAT)
     INTERPOLATION_METHOD = FieldName("Interpolation Method", "Interpolation Method", D.STRING)
     INSTRUMENT_COLLECTION = FieldName("Instrument Collection", "Collection of instruments", D.LIST)
     ISSUE_DATE = FieldName("Issue Date", "Date of issuance of a security", D.DATE)

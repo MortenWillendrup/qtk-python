@@ -5,7 +5,7 @@ import QuantLib as ql
 
 
 class DiscountingBondEngineCreator(CreatorBase):
-    _templates = [T.ENG_BOND_DISCOUNTING]
+    _templates = [T.ENGINE_BOND_DISCOUNTING]
     _req_fields = [F.DISCOUNT_CURVE]
     _opt_fields = []
 

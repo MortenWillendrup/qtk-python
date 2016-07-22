@@ -121,6 +121,9 @@ class CreatorBase(object):
         else:
             return self._data.get(field_id, default_value)
 
+    def __getitem__(self, field):
+        return self._data[field.id]
+
     @property
     def data(self):
         return self._data

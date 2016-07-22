@@ -163,30 +163,21 @@ class CategoryName(NameBase):
 
 class Category(object):
 
-    # termstructure categorization
-    TERM_STRUCTURE = CategoryName("Term Structure")  # Term structure categorization
+    # Second Category Headings
+    ## Instrument Related
+    BOND = CategoryName("Bond")
+    EQUITY = CategoryName("Equity", "Equity")
+    MAIN = CategoryName("Main", "A generic category name")
+    ## Term Structure Related
     CREDIT = CategoryName("Credit")
     INFLATION = CategoryName("Inflation")
     VOLATILITY = CategoryName("Volatility")
     YIELD = CategoryName("Yield")
 
-
-    # Asset names
-    FIXED_INCOME = CategoryName("FI", "Fixed Income")
-    EQUITY = CategoryName("EQ", "Equity")
-
-    # Security types
-    GOVERNMENT = CategoryName("Govt", "Government")
-    CORPORATE = CategoryName("Corp", "Corporate")
-
-    # Security subtype
-    BOND = CategoryName("Bond")
-    ZCB = CategoryName("ZCB", "Zero Coupon Bond")
-
-    MAIN = CategoryName("Main", "A generic category name" )
-
-    # Other category headings
+    # Headings
+    TERM_STRUCTURE = CategoryName("Term Structure")
     TIME = CategoryName("Time", "Time module")
     ENGINE = CategoryName("Engine", "Engine module")
     INSTRUMENT = CategoryName("Instrument", "Instrument module")
+    REPORT = CategoryName("Report", "Reporting module")
 
