@@ -1,7 +1,6 @@
 from blpapi.exception import NotFoundException
+
 from qtk.fields import Field as fl
-from qtk.common import DataType as dt
-from qtk.converters import QuantLibConverter as qlf
 from qtk.templates import Template as tmpl
 
 # TODO: Scale coupon and yield by 100 to get all in fraction

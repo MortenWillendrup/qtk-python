@@ -1,10 +1,12 @@
-from .fields import Field as F, FieldName
-from .common import DataType as D
-from converters import QuantLibConverter as qlf
+import copy
+import uuid
+
 import QuantLib as ql
 import networkx as nx
-import uuid
-import copy
+
+from converters import QuantLibConverter as qlf
+from .common import DataType as D
+from .fields import Field as F, FieldName
 
 
 class Controller(object):

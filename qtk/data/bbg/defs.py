@@ -1,5 +1,6 @@
-import blpapi
 import logging
+
+import blpapi
 
 _bbglogger = logging.getLogger("BBG")
 

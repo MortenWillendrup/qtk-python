@@ -1,7 +1,8 @@
-from .common import CreatorBase
-from qtk.templates import Template as T
-from qtk.fields import Field as F
 import QuantLib as ql
+
+from qtk.fields import Field as F
+from qtk.templates import Template as T
+from .common import CreatorBase
 
 
 class DiscountingBondEngineCreator(CreatorBase):
@@ -10,7 +11,7 @@ class DiscountingBondEngineCreator(CreatorBase):
     _opt_fields = []
 
     def _create(self, asof_date):
-        discount_curve = self.get(F.DISCOUNT_CURVE)
+        discount_curve = self[F.DISCOUNT_CURVE]
         handle = ql.YieldTermStructureHandle(discount_curve)
         engine = ql.DiscountingBondEngine(handle)
         return engine

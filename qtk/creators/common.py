@@ -1,7 +1,6 @@
-from qtk.common import DataType
-from qtk.fields import FieldName
 from qtk.conventions import Convention
 from qtk.converters import QuantLibConverter
+from qtk.fields import FieldName
 
 
 class CreatorBaseMeta(type):

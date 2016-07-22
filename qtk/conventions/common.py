@@ -1,5 +1,5 @@
-from .govtbonds import _govt_bonds
 from .curves import _curves
+from .govtbonds import _govt_bonds
 
 
 class Convention(object):

@@ -1,10 +1,8 @@
-from qtk.fields import Field as F
 import QuantLib as ql
-from qtk.common import Category as C
-from qtk.templates import Instrument
-from .common import CreatorBase
+
+from qtk.fields import Field as F
 from qtk.templates import Template as T
-from . import _creatorslog
+from .common import CreatorBase
 from .utils import ScheduleCreator
 
 

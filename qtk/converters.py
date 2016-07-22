@@ -1,5 +1,6 @@
-import QuantLib as ql
 import datetime
+
+import QuantLib as ql
 from dateutil.parser import parse
 
 

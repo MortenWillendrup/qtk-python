@@ -1,6 +1,7 @@
-from qtk.templates import Template as T
-from qtk.fields import Field as F
 import QuantLib as ql
+
+from qtk.fields import Field as F
+from qtk.templates import Template as T
 
 # http://help.derivativepricing.com/1571.htm
 # USD

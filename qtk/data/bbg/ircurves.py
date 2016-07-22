@@ -3,12 +3,12 @@ This file handles Interest Rate Curves
 """
 import blpapi
 
+from qtk import Template
+from qtk.converters import QuantLibConverter as qlf
+from qtk.fields import Field as fl
 from .defs import BLP_SECURITY_DATA, BLP_FIELD_DATA, BLP_CURVE_MEMBERS, \
     BLP_SECURITY, BLP_CRNCY, BLP_COUNTRY, _bbglogger
-from .mapper import fmt, get_instrument
-from qtk.fields import Field as fl
-from qtk.converters import QuantLibConverter as qlf
-from qtk import Template
+from .mapper import fmt
 
 class IRCurveData(object):
     _CURVE_MEMBER_DATA0 = ["CPN", "CPN_FREQ", "ISSUE_DT", "MATURITY",

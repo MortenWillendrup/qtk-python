@@ -1,6 +1,7 @@
 import blpapi
-from . import _blpapilog
+
 from .defs import _bbglogger
+
 
 def request_error_handler(e):
     _bbglogger.exception(e)
