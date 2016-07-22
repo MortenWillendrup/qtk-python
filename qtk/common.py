@@ -39,7 +39,7 @@ class TemplateBase(object):
             self._creator = creator
         else:
             raise ValueError("Creator %s attempted to overwrite creator %s in template %s" %(
-                creator.__name__, self._creator.__name__, self.id
+                creator.__name__, self._creator.__name__, self.iid
             ))
 
     def get_convention_keys(self):
@@ -94,9 +94,9 @@ class NameBase(object):
 class TypeName(NameBase):
     _id_map = {}
 
-    def __init__(self, name, type, converter):
+    def __init__(self, name, data_type, converter):
         super(TypeName, self).__init__(name)
-        self._type = type
+        self._type = data_type
         self._converter = converter
         self._outer = self
         self._inner = None

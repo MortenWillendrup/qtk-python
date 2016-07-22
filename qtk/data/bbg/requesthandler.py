@@ -37,6 +37,7 @@ class BlpapiRequestHandler(object):
                      error_handler=request_error_handler, output=None):
         """
 
+        :param output: output `dict` to use if provided
         :param request_handler: function that fills out the bloomberg request
         :param event_handler: function that handles events
         :param error_handler: function that handles error

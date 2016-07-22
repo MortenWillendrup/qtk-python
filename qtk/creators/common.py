@@ -5,20 +5,20 @@ from qtk.fields import FieldName
 
 class CreatorBaseMeta(type):
 
-    def __new__(meta, name, bases, dct):
-        return super(CreatorBaseMeta, meta).__new__(meta, name, bases, dct)
+    def __new__(mcs, name, bases, dct):
+        return super(CreatorBaseMeta, mcs).__new__(mcs, name, bases, dct)
 
-    def __init__(self, name, bases, dct):
+    def __init__(cls, name, bases, dct):
         templates = dct.get("_templates")
         base = dct.get("_base", False)
         if templates is not None:
             if isinstance(templates, list):
                 for t in templates:
-                    t._set_creator(self)
+                    t._set_creator(cls)
             else:
                 raise ValueError("_template not of type list")
         elif not base:
-            raise AttributeError("Expected _templates class variable definition for creator ", self)
+            raise AttributeError("Expected _templates class variable definition for creator ", cls)
 
         req_fields = dct.get("_req_fields")
         if req_fields is not None:
@@ -27,9 +27,9 @@ class CreatorBaseMeta(type):
             else:
                 raise ValueError("_req_fields not of type list")
         elif not base:
-            raise AttributeError("Expected _req_fields class variable definition for creator ", self)
+            raise AttributeError("Expected _req_fields class variable definition for creator ", cls)
 
-        super(CreatorBaseMeta, self).__init__(name, bases, dct)
+        super(CreatorBaseMeta, cls).__init__(name, bases, dct)
         #if name !="CreatorBase":
         #    self.setup_dependency()
 
@@ -99,7 +99,7 @@ class CreatorBase(object):
         self._check_fields(self._data)
         self._check_convert_datatypes(self._data)
 
-    def create(self, asof_date=None):
+    def create(self, asof_date):
         _conventions = self._data.get("Conventions")
         self._conventions = _conventions or self.get_global_convention()
         self._conventions = self._conventions or {}  # default to empty dict if global conventions missing
@@ -109,7 +109,7 @@ class CreatorBase(object):
             self._data["ObjectId"] = id(self._object)
         return self._object
 
-    def _create(self, asof_date=None):
+    def _create(self, asof_date):
         raise NotImplementedError("Missing method _create for Creator " + self.__class__.__name__)
 
     def get(self, field, default_value=None):
@@ -127,10 +127,10 @@ class CreatorBase(object):
     def data(self):
         return self._data
 
-    @classmethod
-    def setup_dependency(cls):
-        raise NotImplementedError("%s has not implemented method setup_dependency" % cls.__name__)
+    #@classmethod
+    #def setup_dependency(cls):
+    #    raise NotImplementedError("%s has not implemented method setup_dependency" % cls.__name__)
 
-    @classmethod
-    def output(cls, param_dict=None):
-        raise NotImplementedError("%s has not implemented method output" % cls.__name__)
+    #@classmethod
+    #def output(cls, param_dict=None):
+    #    raise NotImplementedError("%s has not implemented method output" % cls.__name__)

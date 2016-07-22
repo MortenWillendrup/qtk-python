@@ -96,6 +96,12 @@ class QuantLibConverter(object):
         "CDS": ql.DateGeneration.CDS
     }
 
+    _dg = ql.DateGeneration
+    _compounding_set = {ql.Simple, ql.Compounded, ql.Continuous, ql.SimpleThenCompounded}
+    _date_generation_set = {_dg.Backward, _dg.Forward, _dg.Zero, _dg.ThirdWednesday,
+                            _dg.Twentieth, _dg.TwentiethIMM, _dg.OldCDS, _dg.CDS}
+
+
     @classmethod
     def to_daycount(cls, day_count):
         """
@@ -203,7 +209,7 @@ class QuantLibConverter(object):
             compounding = compounding.upper()
             return cls._compounding_map[compounding]
         elif isinstance(compounding, int):
-            if compounding in set([ql.Simple, ql.Compounded, ql.Continuous, ql.SimpleThenCompounded]):
+            if compounding in cls._compounding_set:
                 return compounding
             else:
                 raise ValueError("Invalid compounding value")
@@ -224,9 +230,7 @@ class QuantLibConverter(object):
             rule = rule.upper()
             return cls._date_generation_map[rule]
         elif isinstance(rule, int):
-            dg = ql.DateGeneration
-            if rule in set([dg.Backward, dg.Forward, dg.Zero, dg.ThirdWednesday, dg.Twentieth,
-                            dg.TwentiethIMM, dg.OldCDS, dg.CDS]):
+            if rule in cls._date_generation_set:
                 return rule
             else:
                 raise ValueError("Invalid date generation rule value")
