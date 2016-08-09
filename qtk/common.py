@@ -149,6 +149,7 @@ class DataType(object):
     DATE_GENERATION = TypeName("Date Generation", int, qlf.to_date_generation)
     TERM_STRUCTURE_YIELD = TypeName("Term Structure Yield", ql.YieldTermStructure, lambda x: x)
     PRICING_ENGINE = TypeName("Pricing Engine", ql.PricingEngine, lambda x: x)
+    INSTRUMENT = TypeName("Instrument", ql.Instrument, lambda x: x)
 
     LIST_INT = _LIST(INT, to_list(int))
     LIST_DATE = _LIST(DATE, to_list(qlf.to_date))
@@ -169,6 +170,8 @@ class Category(object):
     BOND = CategoryName("Bond")
     EQUITY = CategoryName("Equity", "Equity")
     MAIN = CategoryName("Main", "A generic category name")
+    MARKET = CategoryName("Market", "Anything market related")
+
     ## Term Structure Related
     CREDIT = CategoryName("Credit")
     INFLATION = CategoryName("Inflation")
@@ -181,4 +184,5 @@ class Category(object):
     ENGINE = CategoryName("Engine", "Engine module")
     INSTRUMENT = CategoryName("Instrument", "Instrument module")
     REPORT = CategoryName("Report", "Reporting module")
+    ANALYTICS = CategoryName("Analytics", "Instrument analytics")
 

@@ -38,6 +38,7 @@ class Field(object):
 
     ASOF_DATE = FieldName("As Of Date", "Reference date or as of date", D.DATE)
     ASSET_CLASS = FieldName("Asset Class", "Asset class of a security", D.STRING)
+    BOND = FieldName("Bond", "A Bond Instrument", D.INSTRUMENT)
     COMPOUNDING = FieldName("Compounding", "Compounding", D.COMPOUNDING)
     COMPOUNDING_FREQ = FieldName("Compounding Frequency", "Compounding Frequency", D.FREQUENCY)
     CONVENTIONS = FieldName("Conventions", "Conventions for instruments, models or indices", D.DICT)
@@ -48,12 +49,12 @@ class Field(object):
     DATA_SOURCE = FieldName("Data Source", "Data vendor source", D.STRING)
     DATE = FieldName("Date", "Date", D.DATE)
     DATE_GENERATION = FieldName("Date Generation", "Date Generation", D.DATE_GENERATION)
-    DIRTY_PRICE = FieldName("Dirty Price", "Boolean indicating if quote is dirty or clean", D.BOOL)
     DISCOUNT_BASIS = FieldName("Discount Basis", "Discount Basis", D.DAYCOUNT)
     DISCOUNT_CALENDAR = FieldName("Discount Calendar", "Discount Calendar", D.CALENDAR)
     DISCOUNT_CURVE = FieldName("Discount Curve", "Discount Curve", D.TERM_STRUCTURE_YIELD)
     DISCOUNT_FACTOR = FieldName("Discount Factor", "Discount Factor", D.FLOAT)
     END_OF_MONTH = FieldName("End Of Month", "End of month rule", D.BOOL)
+
     EXCOUPON_PERIOD = FieldName("Ex Coupon Period", "Ex Coupon Period", D.PERIOD)
     EXCOUPON_CALENDAR = FieldName("Ex Coupon Calendar", "Ex Coupon Calendar", D.CALENDAR)
     EXCOUPON_DAY_CONVENTION = FieldName("Ex Coupon Day Convention", "Ex Coupon Day Convention", D.DAY_CONVENTION)
@@ -63,6 +64,8 @@ class Field(object):
     FORWARD_RATE = FieldName("Forward Rate", "Forward rate from an yield curve in decimal", D.FLOAT)
     INTERPOLATION_METHOD = FieldName("Interpolation Method", "Interpolation Method", D.STRING)
     INSTRUMENT_COLLECTION = FieldName("Instrument Collection", "Collection of instruments", D.LIST)
+    INSTRUMENT = FieldName("Instrument", "Instrument object", D.INSTRUMENT)
+
     ISSUE_DATE = FieldName("Issue Date", "Date of issuance of a security", D.DATE)
 
     MATURITY_DATE = FieldName("Maturity Date", "Maturity date of a security", D.DATE)
@@ -75,6 +78,7 @@ class Field(object):
     PAYMENT_DAY_CONVENTION = FieldName("Payment Day Convention", "Payment Bussiness day convention",
                                        D.DAY_CONVENTION)
     PRICE = FieldName("Price", "Price of a security", D.FLOAT)
+    PRICE_DIRTY = FieldName("Price Dirty", "Boolean indicating if quote is dirty or clean", D.BOOL)
     PRICE_FLAVOR = FieldName("Price Flavor", "Flavor such as bid, ask or mid", D.STRING)
     PRICING_ENGINE = FieldName("Pricing Engine", "Pricing Engine", D.PRICING_ENGINE)
     REDEMPTION = FieldName("Redemption", "Redemption", D.FLOAT)

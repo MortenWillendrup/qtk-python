@@ -95,7 +95,7 @@ class BondRateHelperCreator(CreatorBase):
         price = self.get(F.PRICE)
         coupon = self.get(F.COUPON)
         pay_calendar = self.get(F.PAYMENT_CALENDAR) or self.get(F.ACCRUAL_CALENDAR)
-        dirty_price = self.get(F.DIRTY_PRICE, True)
+        dirty_price = self.get(F.PRICE_DIRTY, True)
         bond_helper = ql.FixedRateBondHelper(
             ql.QuoteHandle(ql.SimpleQuote(price)),
             settlement_days,

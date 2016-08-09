@@ -59,5 +59,10 @@ class Template(object):
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)
 
     # Market Report
-    REPORT_BOND_MARKET = GenericTemplate("Market", C.REPORT, C.BOND)
+    REPORT_MARKET_ALL = GenericTemplate("All", C.REPORT, C.MARKET)
+
+    # Analytics
+    ANALYTICS_MARKET_BOND = GenericTemplate("Bond", C.ANALYTICS, C.MARKET)
+
+
 
