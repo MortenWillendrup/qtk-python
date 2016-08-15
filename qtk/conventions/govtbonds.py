@@ -19,6 +19,8 @@ _govt_bonds = dict.fromkeys([
     F.PAYMENT_CALENDAR.id: ql.UnitedStates(),
     F.PAYMENT_DAY_CONVENTION.id: ql.Following,
     F.SETTLEMENT_CALENDAR.id: ql.UnitedStates(),
+    F.YIELD_COMPOUNDING.id: ql.Compounded,
+    F.YIELD_COMPOUNDING_FREQ: ql.Semiannual,
     F.ROUNDING.id: ql.ClosestRounding(12)
 })
 
@@ -36,6 +38,8 @@ _govt_bonds.update(
         F.PAYMENT_CALENDAR.id: ql.UnitedStates(),
         F.PAYMENT_DAY_CONVENTION.id: ql.Following,
         F.SETTLEMENT_CALENDAR.id: ql.UnitedStates(),
+        F.YIELD_COMPOUNDING.id: ql.Compounded,
+        F.YIELD_COMPOUNDING_FREQ: ql.Semiannual,
         F.ROUNDING.id: ql.ClosestRounding(12)
     })
 )

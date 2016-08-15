@@ -17,7 +17,8 @@ class BondMarketAnalyticsCreator(CreatorBase):
     _templates = [T.ANALYTICS_MARKET_BOND]
     _req_fields = [F.INSTRUMENT]
     _opt_fields = [F.PRICE, F.YIELD, F.PRICE_DIRTY, F.DISCOUNT_BASIS,
-                   F.COMPOUNDING_FREQ, F.COMPOUNDING]
+                   F.COMPOUNDING_FREQ, F.COMPOUNDING, F.YIELD_COMPOUNDING,
+                   F.YIELD_COMPOUNDING_FREQ, F.ACCRUAL_BASIS]
 
     def _create(self, asof_date):
         bond = self[F.INSTRUMENT]
@@ -33,7 +34,10 @@ class BondMarketAnalyticsCreator(CreatorBase):
 
         price = self.get(F.PRICE)
         if price is None:
-            yld = self.get(F.YIELD)
+            yld = self[F.YIELD]
+            price = bond.cleanPrice()
+        else:
+            yld = bond.bondYield()
         """
         report.bond_yield = yld
         report.clean_price = ql.BondFunctions.cleanPrice(

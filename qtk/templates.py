@@ -45,12 +45,16 @@ class Template(object):
     # Instrument Helpers in Building Term Structures
     INST_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENT, C.BOND)
     INST_BOND_TBILL_HELPER = GenericTemplate("Treasury Bill Helper", C.INSTRUMENT, C.BOND)
+    INST_DERIVATIVE_SWAPTION_HELPER = GenericTemplate("Swaption Helper", C.INSTRUMENT, C.DERIVATIVE)
 
     # All Term Structures
     TS_YIELD_BOND = GenericTemplate("Bond Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_ZERO = GenericTemplate("Zero Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_DISCOUNT = GenericTemplate("Discount Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
+
+    # All Models
+    MODELS_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODELS, C.YIELD)
 
     # All Engines
     ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())

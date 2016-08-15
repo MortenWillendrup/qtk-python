@@ -94,7 +94,7 @@ class NameBase(object):
 class TypeName(NameBase):
     _id_map = {}
 
-    def __init__(self, name, data_type, converter):
+    def __init__(self, name, data_type, converter=lambda x:x):
         super(TypeName, self).__init__(name)
         self._type = data_type
         self._converter = converter
@@ -150,6 +150,7 @@ class DataType(object):
     TERM_STRUCTURE_YIELD = TypeName("Term Structure Yield", ql.YieldTermStructure, lambda x: x)
     PRICING_ENGINE = TypeName("Pricing Engine", ql.PricingEngine, lambda x: x)
     INSTRUMENT = TypeName("Instrument", ql.Instrument, lambda x: x)
+    INDEX = TypeName("Index", ql.Index)
 
     LIST_INT = _LIST(INT, to_list(int))
     LIST_DATE = _LIST(DATE, to_list(qlf.to_date))
@@ -169,6 +170,8 @@ class Category(object):
     ## Instrument Related
     BOND = CategoryName("Bond")
     EQUITY = CategoryName("Equity", "Equity")
+    DERIVATIVE = CategoryName("Derivative", "Derivative")
+
     MAIN = CategoryName("Main", "A generic category name")
     MARKET = CategoryName("Market", "Anything market related")
 
@@ -185,4 +188,5 @@ class Category(object):
     INSTRUMENT = CategoryName("Instrument", "Instrument module")
     REPORT = CategoryName("Report", "Reporting module")
     ANALYTICS = CategoryName("Analytics", "Instrument analytics")
+    MODELS = CategoryName("Models", "Models module")
 
