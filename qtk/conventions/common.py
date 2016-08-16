@@ -1,5 +1,6 @@
 from .curves import _curves
 from .govtbonds import _govt_bonds
+from .swaptions import _swaptions
 
 
 class Convention(object):
@@ -15,7 +16,7 @@ class Convention(object):
             result.update(dictionary)
         return result
 
-    _dicts = [_govt_bonds, _curves]
+    _dicts = [_govt_bonds, _curves, _swaptions]
     _conventions = _merge_dicts(*_dicts)
 
     @classmethod

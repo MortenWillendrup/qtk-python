@@ -111,6 +111,9 @@ class Field(object):
     UNDERLYING_MATURITY_DATE = FieldName("Underlying Maturity Date",
                                            "Maturity date of the underlying", D.DATE)
     VOLATILITY = FieldName("Volatility", "Volatility", D.FLOAT)
+    VOLATILITY_TYPE = FieldName("Volatility Type", "Volatility type out of ShiftedLogNormal or Normal", D.STRING)
+    VOLATILITY_SHIFT = FieldName("Volatility Shift", "Volatility Shift", D.FLOAT)
+
     YIELD = FieldName("Yield", "Security Yield", D.FLOAT)
     YIELD_COMPOUNDING = FieldName("Yield Compounding", "Compounding for reporting yield", D.COMPOUNDING)
     YIELD_COMPOUNDING_FREQ = FieldName("Yield Compounding Frequency",
