@@ -34,7 +34,6 @@ class CreatorBaseMeta(type):
         #    self.setup_dependency()
 
 
-
 class CreatorBase(object):
     """
     Every creator must inherit this class. This class adds properties
@@ -52,7 +51,9 @@ class CreatorBase(object):
         :param params:
         :return:
         """
+
         self._data = data
+        self._data.update(self.defaults())
         self._params = params or {}
         self._template = QuantLibConverter.to_template(self._data["Template"])
         self._convention_keys = self._template.get_convention_keys()
@@ -126,6 +127,9 @@ class CreatorBase(object):
     @property
     def data(self):
         return self._data
+
+    def defaults(self):
+        return {}
 
     #@classmethod
     #def setup_dependency(cls):

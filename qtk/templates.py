@@ -39,13 +39,13 @@ class Instrument(NameBase, TemplateBase):
 
 class Template(object):
     # Instruments
-    INST_BOND_TBOND = GenericTemplate("Treasury Bond", C.INSTRUMENT, C.BOND)
-    INST_BOND_TBILL = GenericTemplate("Treasury Bill", C.INSTRUMENT, C.BOND)
+    INST_BOND_TBOND = GenericTemplate("Treasury Bond", C.INSTRUMENTS, C.BOND)
+    INST_BOND_TBILL = GenericTemplate("Treasury Bill", C.INSTRUMENTS, C.BOND)
 
     # Instrument Helpers in Building Term Structures
-    INST_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENT, C.BOND)
-    INST_BOND_TBILL_HELPER = GenericTemplate("Treasury Bill Helper", C.INSTRUMENT, C.BOND)
-    INST_DERIVATIVE_SWAPTION_HELPER = GenericTemplate("Swaption Helper", C.INSTRUMENT, C.DERIVATIVE)
+    INST_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENTS, C.BOND)
+    INST_BOND_TBILL_HELPER = GenericTemplate("Treasury Bill Helper", C.INSTRUMENTS, C.BOND)
+    INST_DERIVATIVE_SWAPTION_HELPER = GenericTemplate("Swaption Helper", C.INSTRUMENTS, C.DERIVATIVE)
 
     # All Term Structures
     TS_YIELD_BOND = GenericTemplate("Bond Curve", C.TERM_STRUCTURE, C.YIELD)
@@ -57,16 +57,26 @@ class Template(object):
     MODELS_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODELS, C.YIELD)
 
     # All Engines
-    ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
+    ENGINES_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINES, C.BOND, convention_keys=())
 
     # Time Module
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)
 
     # Market Report
-    REPORT_MARKET_ALL = GenericTemplate("All", C.REPORT, C.MARKET)
+    REPORTS_MARKET_ALL = GenericTemplate("All", C.REPORTS, C.MARKET)
 
     # Analytics
     ANALYTICS_MARKET_BOND = GenericTemplate("Bond", C.ANALYTICS, C.MARKET)
+
+    # Indexes
+    INDEXES_IBOR_USDLIBOR = GenericTemplate("USD Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_CADLIBOR = GenericTemplate("CAD Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_AUDLIBOR = GenericTemplate("AUD Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_JPYLIBOR = GenericTemplate("JPY Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEXES, C.IBOR)
+
+
 
 
 

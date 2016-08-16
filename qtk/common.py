@@ -171,6 +171,7 @@ class Category(object):
     BOND = CategoryName("Bond")
     EQUITY = CategoryName("Equity", "Equity")
     DERIVATIVE = CategoryName("Derivative", "Derivative")
+    IBOR = CategoryName("Ibor", "Ibor")
 
     MAIN = CategoryName("Main", "A generic category name")
     MARKET = CategoryName("Market", "Anything market related")
@@ -184,9 +185,10 @@ class Category(object):
     # Headings
     TERM_STRUCTURE = CategoryName("Term Structure")
     TIME = CategoryName("Time", "Time module")
-    ENGINE = CategoryName("Engine", "Engine module")
-    INSTRUMENT = CategoryName("Instrument", "Instrument module")
-    REPORT = CategoryName("Report", "Reporting module")
+    ENGINES = CategoryName("Engines", "Engines module")
+    INSTRUMENTS = CategoryName("Instruments", "Instruments module")
+    REPORTS = CategoryName("Reports", "Reporting module")
     ANALYTICS = CategoryName("Analytics", "Instrument analytics")
     MODELS = CategoryName("Models", "Models module")
+    INDEXES = CategoryName("Indexes", "Indexes module")
 

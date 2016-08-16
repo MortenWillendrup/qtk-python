@@ -102,6 +102,7 @@ class Field(object):
     STRIKE = FieldName("Strike", "Strike", D.FLOAT)
     TEMPLATE = FieldName("Template", "Instantiation template",
                          D.TEMPLATE)  # hardcoded field in creators/common; do not change
+    TENOR = FieldName("Tenor", "Generic tenor heading", D.PERIOD)
     TERMINATION_DAY_CONVENTION = FieldName("Termination Day Convention",
                                            "Termination day convention", D.DAY_CONVENTION)
     TICKER = FieldName("Ticker", "Ticker identifier for a security", D.STRING)

@@ -148,7 +148,7 @@ _bond_sample_data = [
      'Template': T.INST_BOND_TBILL.id},
     {'DiscountCurve': "->USD.Bond.Curve",
      "ObjectId": "BondEngine",
-     "Template": T.ENGINE_BOND_DISCOUNTING.id}
+     "Template": T.ENGINES_BOND_DISCOUNTING.id}
     ]
 
 

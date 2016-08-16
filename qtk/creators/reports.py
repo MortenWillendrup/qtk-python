@@ -50,7 +50,7 @@ class BondMarketAnalyticsCreator(CreatorBase):
 
 
 class MarketReportCreator(CreatorBase):
-    _templates = [T.REPORT_MARKET_ALL]
+    _templates = [T.REPORTS_MARKET_ALL]
     _req_fields = [F.INSTRUMENT_COLLECTION, F.DISCOUNT_CURVE, F.ASOF_DATE]
     _opt_fields = [F.PRICE, F.YIELD, F.PRICE_DIRTY, F.DISCOUNT_BASIS,
                    F.COMPOUNDING_FREQ, F.COMPOUNDING]

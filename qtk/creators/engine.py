@@ -6,7 +6,7 @@ from .common import CreatorBase
 
 
 class DiscountingBondEngineCreator(CreatorBase):
-    _templates = [T.ENGINE_BOND_DISCOUNTING]
+    _templates = [T.ENGINES_BOND_DISCOUNTING]
     _req_fields = [F.DISCOUNT_CURVE]
     _opt_fields = []
 

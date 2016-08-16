@@ -3,6 +3,7 @@ from unittest import TestCase
 import QuantLib as ql
 from qtk.templates import Template
 
+
 class TestConverter(TestCase):
 
     def setUp(self):
