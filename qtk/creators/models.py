@@ -3,13 +3,47 @@ import QuantLib as ql
 from qtk.fields import Field as F
 from qtk.templates import Template as T
 from .common import CreatorBase
-from .utils import ScheduleCreator
+from scipy.optimize import root
+import numpy as np
 
 
-class InterestModelMixin(object):
+class SolverMixin(object):
+    def cost_function_generator(self, model, helpers, norm=False):
+        def cost_function(params):
+            params_ = ql.Array(list(params))
+            model.setParams(params_)
+            error = [h.calibrationError() for h in helpers]
+            if norm:
+                return np.sqrt(np.sum(np.abs(error)))
+            else:
+                return error
+        return cost_function
 
-    def swaption_helper(self):
-        pass
+    def solve(self, method):
+        model = self.setup_model()
+        engine = self.setup_engine(model)
+        helpers = self.setup_helpers()
+        for h in helpers:
+            h.setPricingEngine(engine)
+        method = method.upper()
+        if method == "LM":
+            return self._solve_lm(model, helpers)
+
+    def _solve_lm(self, model, helpers):
+        initial_condition = model.params()
+        cost_function = self.cost_function_generator(model, helpers)
+        solution = root(cost_function, initial_condition, method='lm')
+        return model
+
+
+    def setup_helpers(self):
+        raise NotImplementedError("The 'setup_helpers' method is not implemented for " + self.__class__.__name__)
+
+    def setup_model(self):
+        raise NotImplementedError("The 'setup_model' method is not implemented for "+self.__class__.__name__)
+
+    def setup_engine(self, model=None):
+        raise NotImplementedError("The 'setup_engine' method is not implemented for " + self.__class__.__name__)
 
 
 class SwaptionHelperCreator(CreatorBase):
@@ -46,28 +80,46 @@ class SwaptionHelperCreator(CreatorBase):
         vol_shift = self.get(F.VOLATILITY_SHIFT, 0.0)
         swaption_helper = ql.SwaptionHelper(
             maturity, undl_maturity, vol_quote, index, fixed_tenor, fixed_basis,
-            float_basis, yield_handle, ql.CalibrationHelper.RelativePriceError)
-        #    strike, notional, vol_type_enum, vol_shift
-        #)
+            float_basis, yield_handle, ql.CalibrationHelper.RelativePriceError,
+            strike, notional, vol_type_enum, vol_shift)
+
         return swaption_helper
 
 
 
 
-
-
-
-class HullWhite1FCreator(CreatorBase):
+class HullWhite1FCreator(CreatorBase, SolverMixin):
     _templates = [T.MODELS_YIELD_HW1F]
     _req_fields = [F.YIELD_CURVE]
-    _opt_fields = [F.ALPHA, F.SIGMA1, F.INSTRUMENT_COLLECTION]
+    _opt_fields = [F.ALPHA, F.SIGMA1, F.INSTRUMENT_COLLECTION, F.SOLVER]
 
     def _create(self, asof_date):
         alpha = self.get(F.ALPHA)
         sigma1 = self.get(F.SIGMA1)
         yield_curve = self[F.YIELD_CURVE]
         yield_handle = ql.YieldTermStructureHandle(yield_curve)
-
-        model = ql.HullWhite(yield_handle, alpha, sigma1)
+        if alpha is None or sigma1 is None:
+            method = self.get(F.SOLVER, "LM")
+            model = self.solve(method)
+        else:
+            model = ql.HullWhite(yield_handle, alpha, sigma1)
 
         return model
+
+
+    def setup_model(self):
+        yield_curve = self[F.YIELD_CURVE]
+        yield_handle = ql.YieldTermStructureHandle(yield_curve)
+        return ql.HullWhite(yield_handle)
+
+    def setup_engine(self, model=None):
+        if model is not None:
+            engine = ql.JamshidianSwaptionEngine(model)
+            return engine
+        else:
+            raise ValueError("Input model cannot be None")
+
+    def setup_helpers(self):
+        helpers_dict = self.get(F.INSTRUMENT_COLLECTION)
+        helpers = [h[F.OBJECT.id] for h in helpers_dict]
+        return helpers

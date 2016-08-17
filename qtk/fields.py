@@ -98,7 +98,8 @@ class Field(object):
     SECURITY_SUBTYPE = FieldName("Security Subtype", "Security Subtype", D.STRING)
     SETTLEMENT_DAYS = FieldName("Settlement Days", "Settlement days", D.INT)
     SETTLEMENT_CALENDAR = FieldName("Settlement Calendar", "Settlement Calendar", D.CALENDAR)
-    SIGMA1 = FieldName("Sigma1", "Sigma1", D.FLOAT)
+    SIGMA1 = FieldName("Sigma1", "Sigma first factor", D.FLOAT)
+    SOLVER = FieldName("Solver", "Solver", D.STRING)
     STRIKE = FieldName("Strike", "Strike", D.FLOAT)
     TEMPLATE = FieldName("Template", "Instantiation template",
                          D.TEMPLATE)  # hardcoded field in creators/common; do not change
