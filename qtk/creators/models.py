@@ -1,10 +1,12 @@
+from scipy.optimize import root, least_squares, \
+    differential_evolution, basinhopping
+import numpy as np
 import QuantLib as ql
+
 
 from qtk.fields import Field as F
 from qtk.templates import Template as T
 from .common import CreatorBase
-from scipy.optimize import root
-import numpy as np
 
 
 class SolverMixin(object):
@@ -28,13 +30,34 @@ class SolverMixin(object):
         method = method.upper()
         if method == "LM":
             return self._solve_lm(model, helpers)
+        elif (method == "LEASTSQUARES") or (method=="LS"):
+            return self._solve_least_squares(model, helpers)
+        elif (method == "DIFFERENTIALEVOLUTION") or (method == "DE"):
+            return self._solve_differential_evolution(model, helpers)
+        else:
+            raise ValueError("Unrecognized solver choice %s" % method)
 
     def _solve_lm(self, model, helpers):
-        initial_condition = model.params()
+        initial_condition = list(model.params())
         cost_function = self.cost_function_generator(model, helpers)
         solution = root(cost_function, initial_condition, method='lm')
         return model
 
+    def _solve_least_squares(self, model, helpers):
+        initial_condition = list(model.params())
+        cost_function = self.cost_function_generator(model, helpers)
+        bound = self.bounds()
+        solution = least_squares(cost_function,
+                                 initial_condition,
+                                 bounds=bound)
+        return model
+
+    def _solve_differential_evolution(self, model, helpers):
+        cost_function = self.cost_function_generator(model, helpers, norm=True)
+        bound = self.bounds(npinf=False)
+        bound = zip(*bound)
+        solution = differential_evolution(cost_function, bound, maxiter=100)
+        return model
 
     def setup_helpers(self):
         raise NotImplementedError("The 'setup_helpers' method is not implemented for " + self.__class__.__name__)
@@ -44,6 +67,9 @@ class SolverMixin(object):
 
     def setup_engine(self, model=None):
         raise NotImplementedError("The 'setup_engine' method is not implemented for " + self.__class__.__name__)
+
+    def bounds(self):
+        return (-np.inf, np.inf)
 
 
 class SwaptionHelperCreator(CreatorBase):
@@ -86,8 +112,6 @@ class SwaptionHelperCreator(CreatorBase):
         return swaption_helper
 
 
-
-
 class HullWhite1FCreator(CreatorBase, SolverMixin):
     _templates = [T.MODELS_YIELD_HW1F]
     _req_fields = [F.YIELD_CURVE]
@@ -98,19 +122,25 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
         sigma1 = self.get(F.SIGMA1)
         yield_curve = self[F.YIELD_CURVE]
         yield_handle = ql.YieldTermStructureHandle(yield_curve)
-        if alpha is None or sigma1 is None:
-            method = self.get(F.SOLVER, "LM")
+        calibrate = self.get(F.CALIBRATE, False)
+        if calibrate:
+            method = self.get(F.SOLVER, "LEASTSQUARES")
             model = self.solve(method)
-        else:
+        elif (alpha is not None) and (sigma1 is not None):
             model = ql.HullWhite(yield_handle, alpha, sigma1)
+        else:
+            raise ValueError(
+                "Parameter %s and %s should be provided for model or %s should be True"
+                %(F.ALPHA.id, F.SIGMA1.id, F.CALIBRATE.id))
 
         return model
-
 
     def setup_model(self):
         yield_curve = self[F.YIELD_CURVE]
         yield_handle = ql.YieldTermStructureHandle(yield_curve)
-        return ql.HullWhite(yield_handle)
+        alpha = self.get(F.ALPHA, 0.025)
+        sigma1 = self.get(F.SIGMA1, 0.05)
+        return ql.HullWhite(yield_handle, alpha, sigma1)
 
     def setup_engine(self, model=None):
         if model is not None:
@@ -123,3 +153,13 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
         helpers_dict = self.get(F.INSTRUMENT_COLLECTION)
         helpers = [h[F.OBJECT.id] for h in helpers_dict]
         return helpers
+
+    def bounds(self, npinf=True):
+        alpha = self.get(F.ALPHA)
+        sigma1 = self.get(F.SIGMA1)
+        delta = 1e-15
+        maxinf = np.inf if npinf else (1-delta)
+        mininf = -np.inf if npinf else (-1+delta)
+        bound = ([(alpha or mininf)-delta, (sigma1 or 1e-15)-delta],
+                 [(alpha or maxinf)+delta, (sigma1 or maxinf)+delta])
+        return bound

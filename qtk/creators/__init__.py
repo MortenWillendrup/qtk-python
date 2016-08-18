@@ -1,5 +1,5 @@
 import logging
-_creatorslog = logging.getLogger("QTK-CREATORS")
+#_creatorslog = logging.getLogger("QTK-CREATORS")
 import yieldtermstructure
 import utils
 import engine

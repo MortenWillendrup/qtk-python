@@ -39,6 +39,7 @@ class Field(object):
     ASOF_DATE = FieldName("As Of Date", "Reference date or as of date", D.DATE)
     ASSET_CLASS = FieldName("Asset Class", "Asset class of a security", D.STRING)
     BOND = FieldName("Bond", "A Bond Instrument", D.INSTRUMENT)
+    CALIBRATE = FieldName("Calibrate", "Calibration Flag", D.BOOL)
     COMPOUNDING = FieldName("Compounding", "Compounding", D.COMPOUNDING)
     COMPOUNDING_FREQ = FieldName("Compounding Frequency", "Compounding Frequency", D.FREQUENCY)
     CONVENTIONS = FieldName("Conventions", "Conventions for instruments, models or indices", D.DICT)

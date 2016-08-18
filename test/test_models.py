@@ -86,6 +86,8 @@ class TestModels(TestCase):
                 F.OBJECT_ID.id: "HW1FModel",
                 F.YIELD_CURVE.id: "->USD.Flat.Curve",
                 F.CURRENCY.id: "USD",
+                F.SOLVER.id: "LEASTSQUARES",
+                F.CALIBRATE.id: "True",
                 F.INSTRUMENT_COLLECTION.id: [
                     {
                         F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
@@ -133,7 +135,22 @@ class TestModels(TestCase):
                 ]
             }
         ]
-        res = Controller(data)
-        res.process(asof_date)
-        model = res.object("HW1FModel")
-        self.assertIsInstance(model, ql.HullWhite)
+        methods = ["LM", "LeastSquares", "DifferentialEvolution"]
+        for m in methods:
+            data[-1][F.SOLVER.id] = m
+            res = Controller(data)
+            res.process(asof_date)
+            model = res.object("HW1FModel")
+            print model.params()
+            self.assertIsInstance(model, ql.HullWhite)
+
+        # check constraints
+        data[-1][F.ALPHA.id] = 0.001
+        for m in methods[1:]:
+            data[-1][F.SOLVER.id] = m
+            res = Controller(data)
+            res.process(asof_date)
+            model = res.object("HW1FModel")
+            alpha, sigma1 =  model.params()
+            self.assertAlmostEqual(alpha, 0.001, 10)
+            self.assertIsInstance(model, ql.HullWhite)
