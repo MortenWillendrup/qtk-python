@@ -71,6 +71,11 @@ class SolverMixin(object):
     def bounds(self):
         return (-np.inf, np.inf)
 
+    @classmethod
+    def get_solver_info(cls):
+        return  "The solver for calibrating the model parameters. The available options are: " \
+                "LM (Levenberg Marquardt), LS (Least Squares), DE (Differential Evolution)."
+
 
 class SwaptionHelperCreator(CreatorBase):
     _vol_type_map = {"SHIFTEDLOGNORMAL": ql.ShiftedLognormal, "NORMAL": ql.Normal}
@@ -113,6 +118,9 @@ class SwaptionHelperCreator(CreatorBase):
 
 
 class HullWhite1FCreator(CreatorBase, SolverMixin):
+    """
+    This is the HullWhite1Factor model creator.
+    """
     _templates = [T.MODELS_YIELD_HW1F]
     _req_fields = [F.YIELD_CURVE]
     _opt_fields = [F.ALPHA, F.SIGMA1, F.INSTRUMENT_COLLECTION, F.SOLVER]
@@ -163,3 +171,20 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
         bound = ([(alpha or mininf)-delta, (sigma1 or 1e-15)-delta],
                  [(alpha or maxinf)+delta, (sigma1 or maxinf)+delta])
         return bound
+
+    @classmethod
+    def set_info(cls):
+        # override this class to add field level description that will override the default
+        cls.desc("This is a template for creating the Hull-White 1 factor model.\n"
+                 "The model can be instantiated by providing the parameters alpha, \n"
+                 "sigma1, and the yield curve. If not, the model can be calibrated \n"
+                 "from a list of swaptions.")
+        cls.field(F.YIELD_CURVE, "The reference interest rate yield curve")
+        cls.field(F.SOLVER, cls.get_solver_info())
+        cls.field(F.ALPHA, "The mean reversion parameter alpha in the HW1F model")
+        cls.field(F.SIGMA1, "The volatility first factor in the HW1F model")
+        cls.field(F.INSTRUMENT_COLLECTION, "A list of swaption helpers provided "
+                                           "by the template %s" % T.INST_DERIVATIVE_SWAPTION_HELPER.id)
+
+
+

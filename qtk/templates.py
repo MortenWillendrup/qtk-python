@@ -10,6 +10,13 @@ class GenericTemplate(NameBase, TemplateBase):
         super(GenericTemplate, self).__init__(name, name_id=name_id, prefix=category.id)
         TemplateBase.__init__(self, category.id, convention_keys)
 
+    def info(self):
+        creator = self.get_creator()
+        return  creator.class_info() + "\n" + creator.field_info()
+
+    def help(self):
+        print self.info()
+
 
 class Instrument(NameBase, TemplateBase):
     _id_map = {}

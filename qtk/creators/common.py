@@ -10,14 +10,14 @@ class CreatorBaseMeta(type):
 
     def __init__(cls, name, bases, dct):
         templates = dct.get("_templates")
-        base = dct.get("_base", False)
+        base_class = dct.get("_base", False)
         if templates is not None:
             if isinstance(templates, list):
                 for t in templates:
                     t._set_creator(cls)
             else:
                 raise ValueError("_template not of type list")
-        elif not base:
+        elif not base_class:
             raise AttributeError("Expected _templates class variable definition for creator ", cls)
 
         req_fields = dct.get("_req_fields")
@@ -26,13 +26,15 @@ class CreatorBaseMeta(type):
                 pass
             else:
                 raise ValueError("_req_fields not of type list")
-        elif not base:
+        elif not base_class:
             raise AttributeError("Expected _req_fields class variable definition for creator ", cls)
 
         super(CreatorBaseMeta, cls).__init__(name, bases, dct)
-        #if name !="CreatorBase":
-        #    self.setup_dependency()
-
+        if not base_class:
+            cls._field_info_map = {}
+            cls._set_default_field_info()
+            cls.set_info()
+            cls.__doc__ = cls.field_info()
 
 class CreatorBase(object):
     """
@@ -47,11 +49,9 @@ class CreatorBase(object):
     def __init__(self, data, params=None):
         """
 
-        :param data:
-        :param params:
-        :return:
+        :param data (dict): A dictionary with fields and values that define the template creation
+        :param params (dict): Additional parameters
         """
-
         self._data = data
         self._data.update(self.defaults())
         self._params = params or {}
@@ -79,6 +79,14 @@ class CreatorBase(object):
         return [f.id for f in cls.get_req_fields()]
 
     @classmethod
+    def get_opt_fields(cls):
+        return cls._opt_fields
+
+    @classmethod
+    def get_opt_field_ids(cls):
+        return [f.id for f in cls.get_opt_fields()]
+
+    @classmethod
     def _check_fields(cls, data):
         missing_fields = list(set(cls.get_req_field_ids()) - set(data.keys()))
         if len(missing_fields):
@@ -92,8 +100,6 @@ class CreatorBase(object):
             field = FieldName.lookup(field_id)
             cnvrt_val = field.data_type.convert(val)
             data[field_id] = cnvrt_val
-            # if field.data_type == DataType.LIST:
-            #    data[field_id] = [cls._check_convert_datatypes(v) for v in cnvrt_val]
         return data
 
     def check(self):
@@ -131,10 +137,44 @@ class CreatorBase(object):
     def defaults(self):
         return {}
 
-    #@classmethod
-    #def setup_dependency(cls):
-    #    raise NotImplementedError("%s has not implemented method setup_dependency" % cls.__name__)
+    @classmethod
+    def _set_default_field_info(cls):
+        fields = cls.get_req_fields() + cls.get_opt_fields()
+        for f in fields:
+            cls._field_info_map[f] = f.description
 
-    #@classmethod
-    #def output(cls, param_dict=None):
-    #    raise NotImplementedError("%s has not implemented method output" % cls.__name__)
+    @classmethod
+    def class_info(cls):
+        return cls._field_info_map.get("__doc__", "")
+
+    @classmethod
+    def field_info(cls):
+        req_fields = cls.get_req_fields()
+        opt_fields = cls.get_opt_fields()
+        doc = ""
+        if len(req_fields):
+            doc += "Required Fields:\n\n"
+            for f in req_fields:
+                doc += " - %s (%s): %s\n" % (f.id, f.data_type.name, cls._field_info_map[f])
+        if len(opt_fields):
+            doc += "\nOptional Fields:\n\n"
+            for f in opt_fields:
+                doc += " - %s (%s): %s\n" % (f.id, f.data_type.name, cls._field_info_map[f])
+        return doc
+
+    @classmethod
+    def field(cls, field, description):
+        cls._field_info_map[field] = description
+
+    @classmethod
+    def set_info(cls):
+        # override this method to add field level description that will override the default
+        pass
+
+    @classmethod
+    def desc(cls, description):
+        # override this method to add class level info
+        cls._field_info_map["__doc__"] = description
+
+
+
