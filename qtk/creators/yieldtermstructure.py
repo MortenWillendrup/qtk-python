@@ -151,6 +151,14 @@ class BondYieldCurveCreator(CreatorBase):
         else:
             raise KeyError("Missing elements for key "+F.INSTRUMENT_COLLECTION.id)
 
+    @classmethod
+    def set_info(cls):
+        cls.desc("A template for creating yield curve by stripping bond quotes.")
+        cls.field(F.INTERPOLATION_METHOD, "The interpolation method can be one of the following"
+                                          "choices: LinearZero, CubicZero, FlatForward, LinearForward,"
+                                          "LogCubicDiscount.")
+
+
 
 class ZeroCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_ZERO]
@@ -175,8 +183,8 @@ class ZeroCurveCreator(CreatorBase):
 
 class DiscountCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_DISCOUNT]
-    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_DISCOUNT_FACTORS, F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR, F.CURRENCY]
-    _opt_fields = []
+    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_DISCOUNT_FACTORS, F.CURRENCY]
+    _opt_fields = [F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR, F.EXTRAPOLATION]
 
     def _create(self, asof_date):
         dates = self.get(F.LIST_OF_DATES)
@@ -185,16 +193,23 @@ class DiscountCurveCreator(CreatorBase):
         discount_calendar = self.get(F.DISCOUNT_CALENDAR)
         discount_curve = ql.DiscountCurve(dates, discount_factors,
                                           discount_basis, discount_calendar)
+        if self.get(F.EXTRAPOLATION, True):
+            discount_curve.enableExtrapolation()
         return discount_curve
+
+    @classmethod
+    def set_info(cls):
+        cls.desc("A template for creating an yield curve from discount factors.")
 
 
 class FlatForwardCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_FLAT]
-    _req_fields = [F.FORWARD_RATE, F.DISCOUNT_BASIS, F.CURRENCY]
-    _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS, F.SETTLEMENT_CALENDAR, F.COMPOUNDING, F.COMPOUNDING_FREQ]
+    _req_fields = [F.FORWARD_RATE, F.CURRENCY]
+    _opt_fields = [F.ASOF_DATE, F.DISCOUNT_BASIS, F.SETTLEMENT_DAYS, F.SETTLEMENT_CALENDAR,
+                   F.COMPOUNDING, F.COMPOUNDING_FREQ, F.EXTRAPOLATION]
 
     def _create(self, asof_date):
-        basis = self[F.DISCOUNT_BASIS]
+        basis = self.get(F.DISCOUNT_BASIS)
         compounding = self.get(F.COMPOUNDING, ql.Continuous)
         compound_freq = self.get(F.COMPOUNDING_FREQ, ql.Annual)
         forward = self[F.FORWARD_RATE]
@@ -203,7 +218,7 @@ class FlatForwardCurveCreator(CreatorBase):
         if asof_date is None:
             settle_days = self.get(F.SETTLEMENT_DAYS)
             calendar = self.get(F.SETTLEMENT_CALENDAR)
-            return ql.FlatForward(
+            curve = ql.FlatForward(
                 settle_days,
                 calendar,
                 forward_quote,
@@ -212,17 +227,20 @@ class FlatForwardCurveCreator(CreatorBase):
                 compound_freq
             )
         else:
-            return ql.FlatForward(
+            curve = ql.FlatForward(
                 asof_date,
                 forward_quote,
                 basis,
                 compounding,
                 compound_freq
             )
+        if self.get(F.EXTRAPOLATION, True):
+            curve.enableExtrapolation()
+        return curve
 
     @classmethod
     def set_info(cls):
-        cls.desc("A template to create a flat constant curve")
+        cls.desc("A template to create a flat forward yield curve.")
         cls.field(F.ASOF_DATE, "As of date for the yield curve to create a curve fixed "
                                "to a given reference date. Alternately, one can provide"
                                "settlement days and settlement calendar to do relative"

@@ -27,7 +27,7 @@ class FieldNameModifier(FieldName):
         new_field._inner = field
         return new_field
 
-_LIST = FieldNameModifier("List Of", "List Of", D.LIST)
+_LIST = FieldNameModifier("List Of", "List of", D.LIST)
 
 class Field(object):
     # In alphabetical order
@@ -81,7 +81,8 @@ class Field(object):
     NOTIONAL = FieldName("Notional", "Notional", D.FLOAT)
     OBJECT = FieldName("Object", "Instantiation of a QuantLib class",
                        D.OBJECT)  # hardcoded field in creators/common; do not change
-    OBJECT_ID = FieldName("Object Id", "ID of a QuantLib object", D.STRING)
+    OBJECT_ID = FieldName("Object Id", "A unique name or identifier to refer "
+                                       "to this dictionary data", D.STRING)
 
     PAYMENT_BASIS = FieldName("Payment Basis", "Payment Basis", D.DAYCOUNT)
     PAYMENT_CALENDAR = FieldName("Payment Calendar", "Payment calendar", D.CALENDAR)

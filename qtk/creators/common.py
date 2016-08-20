@@ -86,7 +86,8 @@ class CreatorBase(object):
 
     @classmethod
     def get_opt_fields(cls):
-        return cls._opt_fields
+        from qtk.fields import Field
+        return [Field.OBJECT_ID] + cls._opt_fields
 
     @classmethod
     def get_opt_field_ids(cls):
@@ -151,7 +152,10 @@ class CreatorBase(object):
 
     @classmethod
     def class_info(cls):
-        return cls._field_info_map.get("__doc__", "")
+        doc = cls._field_info_map.get("__doc__")
+        doc = "**Description**\n\n"+doc if doc is not None else ""
+        return doc
+
 
     @classmethod
     def field_info(cls):
