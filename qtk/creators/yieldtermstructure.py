@@ -154,7 +154,7 @@ class BondYieldCurveCreator(CreatorBase):
 
 class ZeroCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_ZERO]
-    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_ZERO_RATES, F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR]
+    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_ZERO_RATES, F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR, F.CURRENCY]
     _opt_fields = [F.COMPOUNDING, F.COMPOUNDING_FREQ, F.EXTRAPOLATION]
 
     def _create(self, asof_date):
@@ -175,7 +175,7 @@ class ZeroCurveCreator(CreatorBase):
 
 class DiscountCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_DISCOUNT]
-    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_DISCOUNT_FACTORS, F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR]
+    _req_fields = [F.LIST_OF_DATES, F.LIST_OF_DISCOUNT_FACTORS, F.DISCOUNT_BASIS, F.DISCOUNT_CALENDAR, F.CURRENCY]
     _opt_fields = []
 
     def _create(self, asof_date):
@@ -190,7 +190,7 @@ class DiscountCurveCreator(CreatorBase):
 
 class FlatForwardCurveCreator(CreatorBase):
     _templates = [T.TS_YIELD_FLAT]
-    _req_fields = [F.FORWARD_RATE, F.DISCOUNT_BASIS]
+    _req_fields = [F.FORWARD_RATE, F.DISCOUNT_BASIS, F.CURRENCY]
     _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS, F.SETTLEMENT_CALENDAR, F.COMPOUNDING, F.COMPOUNDING_FREQ]
 
     def _create(self, asof_date):

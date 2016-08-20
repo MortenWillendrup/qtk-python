@@ -7,7 +7,7 @@ from .common import CreatorBase
 
 class ScheduleCreator(CreatorBase):
     _templates = [T.TIME_MAIN_SCHEDULE]
-    _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.ACCRUAL_CALENDAR,
+    _req_fields = [F.CURRENCY, F.ISSUE_DATE, F.MATURITY_DATE, F.ACCRUAL_CALENDAR,
                    F.ACCRUAL_DAY_CONVENTION]
     _opt_fields = [F.TERMINATION_DAY_CONVENTION, F.END_OF_MONTH, F.DATE_GENERATION, F.COUPON_FREQ]
 

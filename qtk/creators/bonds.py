@@ -59,7 +59,7 @@ class FixedRateBondCreator(_BondCreator):
 
 class ZeroCouponBondCreator(_BondCreator):
     _templates = [T.INST_BOND_TBILL]
-    _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE]
+    _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.CURRENCY]
     _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS, F.MATURITY_DATE,
                    F.PAYMENT_CALENDAR, F.PAYMENT_DAY_CONVENTION, F.REDEMPTION]
 

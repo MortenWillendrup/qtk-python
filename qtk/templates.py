@@ -61,7 +61,7 @@ class Template(object):
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
 
     # All Models
-    MODELS_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODELS, C.YIELD)
+    MODELS_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODELS, C.YIELD, convention_keys=())
 
     # All Engines
     ENGINES_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINES, C.BOND, convention_keys=())
@@ -73,15 +73,15 @@ class Template(object):
     REPORTS_MARKET_ALL = GenericTemplate("All", C.REPORTS, C.MARKET)
 
     # Analytics
-    ANALYTICS_MARKET_BOND = GenericTemplate("Bond", C.ANALYTICS, C.MARKET)
+    ANALYTICS_MARKET_BOND = GenericTemplate("Bond", C.ANALYTICS, C.MARKET, convention_keys=())
 
     # Indexes
-    INDEXES_IBOR_USDLIBOR = GenericTemplate("USD Libor", C.INDEXES, C.IBOR)
-    INDEXES_IBOR_CADLIBOR = GenericTemplate("CAD Libor", C.INDEXES, C.IBOR)
-    INDEXES_IBOR_AUDLIBOR = GenericTemplate("AUD Libor", C.INDEXES, C.IBOR)
-    INDEXES_IBOR_JPYLIBOR = GenericTemplate("JPY Libor", C.INDEXES, C.IBOR)
-    INDEXES_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEXES, C.IBOR)
-    INDEXES_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEXES, C.IBOR)
+    INDEXES_IBOR_USDLIBOR = GenericTemplate("USD Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEXES_IBOR_CADLIBOR = GenericTemplate("CAD Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEXES_IBOR_AUDLIBOR = GenericTemplate("AUD Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEXES_IBOR_JPYLIBOR = GenericTemplate("JPY Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEXES_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEXES_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEXES, C.IBOR, convention_keys=())
 
 
 

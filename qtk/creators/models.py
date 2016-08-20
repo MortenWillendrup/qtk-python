@@ -80,7 +80,7 @@ class SolverMixin(object):
 class SwaptionHelperCreator(CreatorBase):
     _vol_type_map = {"SHIFTEDLOGNORMAL": ql.ShiftedLognormal, "NORMAL": ql.Normal}
     _templates = [T.INST_DERIVATIVE_SWAPTION_HELPER]
-    _req_fields = [F.VOLATILITY, F.INDEX, F.DISCOUNT_CURVE]
+    _req_fields = [F.VOLATILITY, F.INDEX, F.DISCOUNT_CURVE, F.CURRENCY]
     _opt_fields = [F.MATURITY_DATE, F.MATURITY_TENOR,
                    F.UNDERLYING_MATURITY_DATE, F.UNDERLYING_MATURITY_TENOR,
                    F.FIXED_LEG_TENOR, F.FIXED_LEG_BASIS, F.FLOAT_LEG_BASIS,

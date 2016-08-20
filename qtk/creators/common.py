@@ -15,6 +15,11 @@ class CreatorBaseMeta(type):
             if isinstance(templates, list):
                 for t in templates:
                     t._set_creator(cls)
+                    req_fields = cls.get_req_fields()
+                    missing = [f for f in t.get_convention_keys() if f not in req_fields]
+                    if len(missing):
+                        raise ValueError("Convention field(s) %s not in creator %s"% (str(missing), cls.__name__ ))
+
             else:
                 raise ValueError("_template not of type list")
         elif not base_class:
@@ -35,6 +40,7 @@ class CreatorBaseMeta(type):
             cls._set_default_field_info()
             cls.set_info()
             cls.__doc__ = cls.field_info()
+
 
 class CreatorBase(object):
     """
@@ -175,6 +181,8 @@ class CreatorBase(object):
     def desc(cls, description):
         # override this method to add class level info
         cls._field_info_map["__doc__"] = description
+
+
 
 
 
