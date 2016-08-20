@@ -1,3 +1,5 @@
+import markdown
+
 from qtk.common import TemplateBase, NameBase, Category as C
 from qtk.fields import Field as F
 
@@ -12,10 +14,13 @@ class GenericTemplate(NameBase, TemplateBase):
 
     def info(self):
         creator = self.get_creator()
-        return  creator.class_info() + "\n" + creator.field_info()
+        return  creator.class_info() + "\n\n" + creator.field_info()
 
     def help(self):
         print self.info()
+
+    def _repr_html_(self):
+        return markdown.markdown(self.info())
 
 
 class Instrument(NameBase, TemplateBase):

@@ -84,8 +84,8 @@ class Field(object):
     OBJECT_ID = FieldName("Object Id", "ID of a QuantLib object", D.STRING)
 
     PAYMENT_BASIS = FieldName("Payment Basis", "Payment Basis", D.DAYCOUNT)
-    PAYMENT_CALENDAR = FieldName("Payment Calendar", "Payment Calendar", D.CALENDAR)
-    PAYMENT_DAY_CONVENTION = FieldName("Payment Day Convention", "Payment Bussiness day convention",
+    PAYMENT_CALENDAR = FieldName("Payment Calendar", "Payment calendar", D.CALENDAR)
+    PAYMENT_DAY_CONVENTION = FieldName("Payment Day Convention", "Payment bussiness day convention",
                                        D.DAY_CONVENTION)
     PRICE = FieldName("Price", "Price of a security", D.FLOAT)
     PRICE_DIRTY = FieldName("Price Dirty", "Boolean indicating if quote is dirty or clean", D.BOOL)

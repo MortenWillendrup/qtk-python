@@ -16,4 +16,8 @@ class DiscountingBondEngineCreator(CreatorBase):
         engine = ql.DiscountingBondEngine(handle)
         return engine
 
+    @classmethod
+    def set_info(cls):
+        cls.desc("Creates a discounting bond engine to value bond cashflows")
+        cls.field(F.DISCOUNT_CURVE, "The reference yield curve to use for discounting")
 

@@ -219,3 +219,13 @@ class FlatForwardCurveCreator(CreatorBase):
                 compounding,
                 compound_freq
             )
+
+    @classmethod
+    def set_info(cls):
+        cls.desc("A template to create a flat constant curve")
+        cls.field(F.ASOF_DATE, "As of date for the yield curve to create a curve fixed "
+                               "to a given reference date. Alternately, one can provide"
+                               "settlement days and settlement calendar to do relative"
+                               "to calculation date.")
+        cls.field(F.SETTLEMENT_DAYS, "Settlement days, and is used if asof date is not provided.")
+

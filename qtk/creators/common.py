@@ -159,13 +159,13 @@ class CreatorBase(object):
         opt_fields = cls.get_opt_fields()
         doc = ""
         if len(req_fields):
-            doc += "Required Fields:\n\n"
+            doc += "**Required Fields**\n\n"
             for f in req_fields:
-                doc += " - %s (%s): %s\n" % (f.id, f.data_type.name, cls._field_info_map[f])
+                doc += " - `%s` [*%s*]: %s\n" % (f.id, f.data_type.id, cls._field_info_map[f])
         if len(opt_fields):
-            doc += "\nOptional Fields:\n\n"
+            doc += "\n**Optional Fields**\n\n"
             for f in opt_fields:
-                doc += " - %s (%s): %s\n" % (f.id, f.data_type.name, cls._field_info_map[f])
+                doc += " - `%s` [*%s*]: %s\n" % (f.id, f.data_type.id, cls._field_info_map[f])
         return doc
 
     @classmethod

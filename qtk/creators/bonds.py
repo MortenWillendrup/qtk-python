@@ -56,12 +56,17 @@ class FixedRateBondCreator(_BondCreator):
         )
         return bond
 
+    @classmethod
+    def set_info(cls):
+        cls.desc("A template for creating a Fixed Rate Bond.")
+
 
 class ZeroCouponBondCreator(_BondCreator):
     _templates = [T.INST_BOND_TBILL]
     _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.CURRENCY]
-    _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS, F.MATURITY_DATE,
-                   F.PAYMENT_CALENDAR, F.PAYMENT_DAY_CONVENTION, F.REDEMPTION]
+    _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS,
+                   F.PAYMENT_CALENDAR, F.PAYMENT_DAY_CONVENTION, F.REDEMPTION,
+                   F.FACE_AMOUNT]
 
     def _create(self, asof_date):
         settlement_days = self.get(F.SETTLEMENT_DAYS)
@@ -83,4 +88,7 @@ class ZeroCouponBondCreator(_BondCreator):
         )
         return bond
 
+    @classmethod
+    def set_info(cls):
+        cls.desc("A template for creating a Zero Coupon Bond.")
 
