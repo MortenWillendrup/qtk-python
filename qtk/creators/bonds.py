@@ -92,3 +92,12 @@ class ZeroCouponBondCreator(_BondCreator):
     def set_info(cls):
         cls.desc("A template for creating a Zero Coupon Bond.")
 
+
+
+class CallableFixedRateBondCreator(_BondCreator):
+    _templates = []
+    _req_fields = []
+    _opt_fields = []
+
+    def _create(self, asof_date):
+        pass
