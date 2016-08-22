@@ -20,18 +20,26 @@ class _BondCreator(CreatorBase):
 
 class FixedRateBondCreator(_BondCreator):
     _templates = [T.INST_BOND_TBOND]
-    _req_fields = ScheduleCreator._req_fields
-    _opt_fields = []
+    _req_fields = [F.CURRENCY, F.ISSUE_DATE, F.MATURITY_DATE]
+    _opt_fields = [ F.ACCRUAL_CALENDAR, F.ACCRUAL_DAY_CONVENTION, F.TERMINATION_DAY_CONVENTION,
+                    F.END_OF_MONTH, F.DATE_GENERATION, F.COUPON_FREQ, F.SETTLEMENT_DAYS, F.FACE_AMOUNT,
+                    F.COUPON, F.LIST_OF_COUPONS, F.PAYMENT_CALENDAR, F.PAYMENT_DAY_CONVENTION,
+                    F.REDEMPTION, F.EXCOUPON_PERIOD, F.EXCOUPON_CALENDAR, F.EXCOUPON_DAY_CONVENTION,
+                    F.EXCOUPON_END_OF_MONTH, F.COMPOUNDING]
 
     def _create(self, asof_date):
         schedule = ScheduleCreator(self.data).create(asof_date)
         settlement_days = self.get(F.SETTLEMENT_DAYS)
         face_amount = self.get(F.FACE_AMOUNT, 100.0)
+        issue_date = self[F.ISSUE_DATE]
+
+        accrual_basis = self.get(F.ACCRUAL_BASIS)
+        coupon_freq = self.get(F.COUPON_FREQ)
+        compounding = self.get(F.COMPOUNDING)
         coupon = self.get(F.COUPON) or self.get(F.LIST_OF_COUPONS) or 0.0
         coupon = [coupon] if not isinstance(coupon, list) else coupon
-        issue_date = self.get(F.ISSUE_DATE) or self.get(F.ASOF_DATE) or asof_date
+        coupon = [ql.InterestRate(c, accrual_basis, compounding, coupon_freq) for c in coupon]
         pay_calendar = self.get(F.PAYMENT_CALENDAR) or self.get(F.ACCRUAL_CALENDAR)
-        pay_basis = self.get(F.PAYMENT_BASIS) or self.get(F.ACCRUAL_BASIS)
         pay_convention = self.get(F.PAYMENT_DAY_CONVENTION) or self.get(F.ACCRUAL_DAY_CONVENTION)
         redemption = self.get(F.REDEMPTION, face_amount)
         excoupon_period = self.get(F.EXCOUPON_PERIOD, ql.Period())
@@ -44,7 +52,6 @@ class FixedRateBondCreator(_BondCreator):
             face_amount,
             schedule,
             coupon,
-            pay_basis,
             pay_convention,
             redemption,
             issue_date,

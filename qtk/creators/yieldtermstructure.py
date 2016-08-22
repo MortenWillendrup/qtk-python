@@ -3,6 +3,7 @@ import QuantLib as ql
 from qtk.fields import Field as F
 from qtk.templates import Template as T
 from .common import CreatorBase
+from .bonds import FixedRateBondCreator
 from .utils import ScheduleCreator
 
 
@@ -11,7 +12,7 @@ class DepositRateHelperCreator(CreatorBase):
     _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.COUPON, F.CURRENCY]
     _opt_fields = [F.PRICE, F.YIELD]
 
-    def _bond_schedule(self):
+    def _bond_schedule(self, asof_date):
         maturity_date = self.get(F.MATURITY_DATE)
         asof_date = self.get(F.ASOF_DATE)
         period = ql.Period(1, ql.Years)
@@ -28,10 +29,11 @@ class DepositRateHelperCreator(CreatorBase):
                                termination_convention,
                                ql.DateGeneration.Backward,
                                end_of_month)
+
         return schedule
 
     def _create(self, asof_date):
-        schedule = self._bond_schedule()
+        schedule = self._bond_schedule(asof_date)
         face_amount = self.get(F.FACE_AMOUNT, 100.0)
         settlement_days = self.get(F.SETTLEMENT_DAYS)
         day_count = self.get(F.ACCRUAL_BASIS)
@@ -79,7 +81,7 @@ class DepositRateHelperCreator(CreatorBase):
         )
         return depo_rate_helper
 
-
+"""
 class BondRateHelperCreator(CreatorBase):
     _templates = [T.INST_BOND_TBOND_HELPER]
     _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.COUPON, F.PRICE, F.CURRENCY]
@@ -114,6 +116,21 @@ class BondRateHelperCreator(CreatorBase):
             dirty_price
         )
         return bond_helper
+"""
+
+
+class BondRateHelperCreator(CreatorBase):
+    _templates = [T.INST_BOND_TBOND_HELPER]
+    _req_fields = FixedRateBondCreator.get_req_fields() + [F.PRICE]
+    _opt_fields = FixedRateBondCreator.get_opt_fields() + [F.PRICE_DIRTY]
+
+    def _create(self, asof_date):
+        bond = FixedRateBondCreator(self._data).create(asof_date)
+        price = self[F.PRICE]
+        quote = ql.QuoteHandle(ql.SimpleQuote(price))
+        price_dirty = self.get(F.PRICE_DIRTY, False)
+        helper = ql.BondHelper(quote, bond, (not price_dirty))
+        return helper
 
 
 class BondYieldCurveCreator(CreatorBase):
@@ -157,7 +174,6 @@ class BondYieldCurveCreator(CreatorBase):
         cls.field(F.INTERPOLATION_METHOD, "The interpolation method can be one of the following"
                                           "choices: LinearZero, CubicZero, FlatForward, LinearForward,"
                                           "LogCubicDiscount.")
-
 
 
 class ZeroCurveCreator(CreatorBase):

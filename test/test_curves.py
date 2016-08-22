@@ -117,15 +117,25 @@ class TestCurves(TestCase):
         self.assertIsInstance(curve, ql.YieldTermStructure)
 
         tenors = range(0,13,1) + [60, 90, 120, 240, 300, 359, 360]
-        vals = [1.0, 0.995463027383, 0.944034654878, 0.895839444646, 0.848938836737, 0.654147091,
-                0.553886881, 0.459282459, 0.458070805]
+        # reference
+        vals = [1,0.999818753,0.999586047,0.999330996,0.998969924,0.998519955,0.998012046,
+                0.997480698,0.996973715,0.996446467,0.995819544,0.995147323,0.994527808,
+                0.94416047,0.895823056,0.848952274,0.654149304,0.553888921,0.459284189,
+                0.458072534]
+        # last observed
+        vals = [1.0, 0.9998187481880838, 0.9995860408491943, 0.9993309911166345, 0.998969919388518, 0.9985199520192828,
+         0.9980120452385237, 0.9974638785194306, 0.9969737149981466, 0.9964464679686021, 0.9957564702629885,
+         0.9951473260058783, 0.9945282870008731, 0.9440478657964286, 0.8958540539792529, 0.8489512443374962,
+         0.6541478087480587, 0.553887387818232, 0.45928271508412133, 0.45770699043771784]
+
         calendar = ql.UnitedStates(ql.UnitedStates.GovernmentBond)
-        for t in tenors:
+        for i, t in enumerate(tenors):
             p = ql.Period(t, ql.Months)
             d = calendar.advance(asof_date, ql.Period(t, ql.Months),ql.ModifiedFollowing)
             o = curve.discount(d)
-            #self.assertAlmostEqual(o, v, 10, msg="("+str(t)+","+str(d)+","+str(o)+","+str(v)+")")
-            print t, d, o
+            v = vals[i]
+            self.assertAlmostEqual(o, v, 15, msg="("+str(t)+","+str(d)+","+str(o)+","+str(v)+")")
+            print t, d, o, v
 
     def test_zero_curve(self):
         data = {
