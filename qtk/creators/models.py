@@ -79,7 +79,7 @@ class SolverMixin(object):
 
 class SwaptionHelperCreator(CreatorBase):
     _vol_type_map = {"SHIFTEDLOGNORMAL": ql.ShiftedLognormal, "NORMAL": ql.Normal}
-    _templates = [T.INST_DERIVATIVE_SWAPTION_HELPER]
+    _templates = [T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER]
     _req_fields = [F.VOLATILITY, F.INDEX, F.DISCOUNT_CURVE, F.CURRENCY]
     _opt_fields = [F.MATURITY_DATE, F.MATURITY_TENOR,
                    F.UNDERLYING_MATURITY_DATE, F.UNDERLYING_MATURITY_TENOR,
@@ -121,7 +121,7 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
     """
     This is the HullWhite1Factor model creator.
     """
-    _templates = [T.MODELS_YIELD_HW1F]
+    _templates = [T.MODEL_YIELD_HW1F]
     _req_fields = [F.YIELD_CURVE]
     _opt_fields = [F.ALPHA, F.SIGMA1, F.INSTRUMENT_COLLECTION, F.SOLVER]
 
@@ -184,7 +184,7 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
         cls.field(F.ALPHA, "The mean reversion parameter alpha in the HW1F model")
         cls.field(F.SIGMA1, "The volatility first factor in the HW1F model")
         cls.field(F.INSTRUMENT_COLLECTION, "A list of swaption helpers provided "
-                                           "by the template %s" % T.INST_DERIVATIVE_SWAPTION_HELPER.id)
+                                           "by the template %s" % T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id)
 
 
 

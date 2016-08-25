@@ -8,7 +8,7 @@ from .utils import ScheduleCreator
 
 
 class DepositRateHelperCreator(CreatorBase):
-    _templates = [T.INST_BOND_TBILL_HELPER]
+    _templates = [T.INSTRUMENT_BOND_TBILL_HELPER]
     _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.COUPON, F.CURRENCY]
     _opt_fields = [F.PRICE, F.YIELD]
 
@@ -120,7 +120,7 @@ class BondRateHelperCreator(CreatorBase):
 
 
 class BondRateHelperCreator(CreatorBase):
-    _templates = [T.INST_BOND_TBOND_HELPER]
+    _templates = [T.INSTRUMENT_BOND_TBOND_HELPER]
     _req_fields = FixedRateBondCreator.get_req_fields() + [F.PRICE]
     _opt_fields = FixedRateBondCreator.get_opt_fields() + [F.PRICE_DIRTY]
 

@@ -5,7 +5,7 @@ from qtk.fields import Field as F
 
 
 class USDLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_USDLIBOR]
+    _templates = [T.INDEX_IBOR_USDLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 
@@ -26,7 +26,7 @@ class USDLiborCreator(CreatorBase):
 
 
 class CADLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_CADLIBOR]
+    _templates = [T.INDEX_IBOR_CADLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 
@@ -47,7 +47,7 @@ class CADLiborCreator(CreatorBase):
 
 
 class GBPLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_GBPLIBOR]
+    _templates = [T.INDEX_IBOR_GBPLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 
@@ -68,7 +68,7 @@ class GBPLiborCreator(CreatorBase):
 
 
 class AUDLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_AUDLIBOR]
+    _templates = [T.INDEX_IBOR_AUDLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 
@@ -89,7 +89,7 @@ class AUDLiborCreator(CreatorBase):
 
 
 class JPYLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_JPYLIBOR]
+    _templates = [T.INDEX_IBOR_JPYLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 
@@ -110,7 +110,7 @@ class JPYLiborCreator(CreatorBase):
 
 
 class EURLiborCreator(CreatorBase):
-    _templates = [T.INDEXES_IBOR_EURLIBOR]
+    _templates = [T.INDEX_IBOR_EURLIBOR]
     _req_fields = [F.YIELD_CURVE, F.TENOR]
     _opt_fields = []
 

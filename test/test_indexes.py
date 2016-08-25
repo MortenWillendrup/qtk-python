@@ -17,7 +17,7 @@ class TestIndexes(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_USDLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_USDLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "USDLibor3M",
                 F.YIELD_CURVE.id: "->USD.Flat.Curve"
@@ -40,7 +40,7 @@ class TestIndexes(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_CADLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_CADLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "CADLibor3M",
                 F.YIELD_CURVE.id: "->CAD.Flat.Curve"
@@ -64,7 +64,7 @@ class TestIndexes(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_JPYLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_JPYLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "JPYLibor3M",
                 F.YIELD_CURVE.id: "->JPY.Flat.Curve"
@@ -88,7 +88,7 @@ class TestIndexes(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_GBPLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_GBPLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "GBPLibor3M",
                 F.YIELD_CURVE.id: "->GBP.Flat.Curve"
@@ -111,7 +111,7 @@ class TestIndexes(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_EURLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_EURLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "EURLibor3M",
                 F.YIELD_CURVE.id: "->EUR.Flat.Curve"

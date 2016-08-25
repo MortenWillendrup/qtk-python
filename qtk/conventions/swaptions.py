@@ -3,7 +3,7 @@ from qtk.fields import Field as F
 from qtk.templates import Template as T
 
 _swaptions = dict.fromkeys([
-    "USD."+T.INST_DERIVATIVE_SWAPTION_HELPER.id
+    "USD."+T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id
 ],  {
     F.SETTLEMENT_DAYS.id: 2,
     F.FIXED_LEG_TENOR.id: ql.Period(6, ql.Months),

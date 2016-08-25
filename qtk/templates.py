@@ -51,13 +51,15 @@ class Instrument(NameBase, TemplateBase):
 
 class Template(object):
     # Instruments
-    INST_BOND_TBOND = GenericTemplate("Treasury Bond", C.INSTRUMENTS, C.BOND)
-    INST_BOND_TBILL = GenericTemplate("Treasury Bill", C.INSTRUMENTS, C.BOND)
+    INSTRUMENT_BOND_TBOND = GenericTemplate("Treasury Bond", C.INSTRUMENT, C.BOND)
+    INSTRUMENT_BOND_TBILL = GenericTemplate("Treasury Bill", C.INSTRUMENT, C.BOND)
+
+    INSTRUMENT_DERIVATIVE_EUROPEANOPTION = GenericTemplate("European Option", C.INSTRUMENT, C.DERIVATIVE)
 
     # Instrument Helpers in Building Term Structures
-    INST_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENTS, C.BOND)
-    INST_BOND_TBILL_HELPER = GenericTemplate("Treasury Bill Helper", C.INSTRUMENTS, C.BOND)
-    INST_DERIVATIVE_SWAPTION_HELPER = GenericTemplate("Swaption Helper", C.INSTRUMENTS, C.DERIVATIVE)
+    INSTRUMENT_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENT, C.BOND)
+    INSTRUMENT_BOND_TBILL_HELPER = GenericTemplate("Treasury Bill Helper", C.INSTRUMENT, C.BOND)
+    INSTRUMENT_DERIVATIVE_SWAPTION_HELPER = GenericTemplate("Swaption Helper", C.INSTRUMENT, C.DERIVATIVE)
 
     # All Term Structures
     TS_YIELD_BOND = GenericTemplate("Bond Curve", C.TERM_STRUCTURE, C.YIELD)
@@ -66,27 +68,27 @@ class Template(object):
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
 
     # All Models
-    MODELS_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODELS, C.YIELD, convention_keys=())
+    MODEL_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODEL, C.YIELD, convention_keys=())
 
     # All Engines
-    ENGINES_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINES, C.BOND, convention_keys=())
+    ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
 
     # Time Module
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)
 
     # Market Report
-    REPORTS_MARKET_ALL = GenericTemplate("All", C.REPORTS, C.MARKET)
+    REPORT_MARKET_ALL = GenericTemplate("All", C.REPORT, C.MARKET)
 
     # Analytics
-    ANALYTICS_MARKET_BOND = GenericTemplate("Bond", C.ANALYTICS, C.MARKET, convention_keys=())
+    ANALYTIC_MARKET_BOND = GenericTemplate("Bond", C.ANALYTIC, C.MARKET, convention_keys=())
 
     # Indexes
-    INDEXES_IBOR_USDLIBOR = GenericTemplate("USD Libor", C.INDEXES, C.IBOR, convention_keys=())
-    INDEXES_IBOR_CADLIBOR = GenericTemplate("CAD Libor", C.INDEXES, C.IBOR, convention_keys=())
-    INDEXES_IBOR_AUDLIBOR = GenericTemplate("AUD Libor", C.INDEXES, C.IBOR, convention_keys=())
-    INDEXES_IBOR_JPYLIBOR = GenericTemplate("JPY Libor", C.INDEXES, C.IBOR, convention_keys=())
-    INDEXES_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEXES, C.IBOR, convention_keys=())
-    INDEXES_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEXES, C.IBOR, convention_keys=())
+    INDEX_IBOR_USDLIBOR = GenericTemplate("USD Libor", C.INDEX, C.IBOR, convention_keys=())
+    INDEX_IBOR_CADLIBOR = GenericTemplate("CAD Libor", C.INDEX, C.IBOR, convention_keys=())
+    INDEX_IBOR_AUDLIBOR = GenericTemplate("AUD Libor", C.INDEX, C.IBOR, convention_keys=())
+    INDEX_IBOR_JPYLIBOR = GenericTemplate("JPY Libor", C.INDEX, C.IBOR, convention_keys=())
+    INDEX_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEX, C.IBOR, convention_keys=())
+    INDEX_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEX, C.IBOR, convention_keys=())
 
 
 

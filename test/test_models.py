@@ -17,7 +17,7 @@ class TestModels(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.MODELS_YIELD_HW1F,
+                F.TEMPLATE.id: T.MODEL_YIELD_HW1F,
                 F.ALPHA.id: 0.1,
                 F.SIGMA1.id: 0.05,
                 F.OBJECT_ID.id: "HW1FModel",
@@ -42,13 +42,13 @@ class TestModels(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_USDLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_USDLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "USDLibor3M",
                 F.YIELD_CURVE.id: "->USD.Flat.Curve"
             },
             {
-                F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
+                F.TEMPLATE.id: T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id,
                 F.MATURITY_TENOR.id: "1Y",
                 F.UNDERLYING_MATURITY_TENOR.id: "5Y",
                 F.DISCOUNT_CURVE.id: "->USD.Flat.Curve",
@@ -76,13 +76,13 @@ class TestModels(TestCase):
                 F.TEMPLATE.id: T.TS_YIELD_FLAT
             },
             {
-                F.TEMPLATE.id: T.INDEXES_IBOR_USDLIBOR.id,
+                F.TEMPLATE.id: T.INDEX_IBOR_USDLIBOR.id,
                 F.TENOR.id: "3M",
                 F.OBJECT_ID.id: "USDLibor3M",
                 F.YIELD_CURVE.id: "->USD.Flat.Curve"
             },
             {
-                F.TEMPLATE.id: T.MODELS_YIELD_HW1F,
+                F.TEMPLATE.id: T.MODEL_YIELD_HW1F,
                 F.OBJECT_ID.id: "HW1FModel",
                 F.YIELD_CURVE.id: "->USD.Flat.Curve",
                 F.CURRENCY.id: "USD",
@@ -90,7 +90,7 @@ class TestModels(TestCase):
                 F.CALIBRATE.id: "True",
                 F.INSTRUMENT_COLLECTION.id: [
                     {
-                        F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
+                        F.TEMPLATE.id: T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id,
                         F.MATURITY_TENOR.id: "1Y",
                         F.UNDERLYING_MATURITY_TENOR.id: "5Y",
                         F.DISCOUNT_CURVE.id: "->USD.Flat.Curve",
@@ -101,7 +101,7 @@ class TestModels(TestCase):
 
                     },
                     {
-                        F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
+                        F.TEMPLATE.id: T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id,
                         F.MATURITY_TENOR.id: "2Y",
                         F.UNDERLYING_MATURITY_TENOR.id: "4Y",
                         F.DISCOUNT_CURVE.id: "->USD.Flat.Curve",
@@ -112,7 +112,7 @@ class TestModels(TestCase):
 
                     },
                     {
-                        F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
+                        F.TEMPLATE.id: T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id,
                         F.MATURITY_TENOR.id: "3Y",
                         F.UNDERLYING_MATURITY_TENOR.id: "3Y",
                         F.DISCOUNT_CURVE.id: "->USD.Flat.Curve",
@@ -123,7 +123,7 @@ class TestModels(TestCase):
 
                     },
                     {
-                        F.TEMPLATE.id: T.INST_DERIVATIVE_SWAPTION_HELPER.id,
+                        F.TEMPLATE.id: T.INSTRUMENT_DERIVATIVE_SWAPTION_HELPER.id,
                         F.MATURITY_TENOR.id: "4Y",
                         F.UNDERLYING_MATURITY_TENOR.id: "1Y",
                         F.DISCOUNT_CURVE.id: "->USD.Flat.Curve",
@@ -141,7 +141,7 @@ class TestModels(TestCase):
             res = Controller(data)
             res.process(asof_date)
             model = res.object("HW1FModel")
-            print model.params()
+            #print model.params()
             self.assertIsInstance(model, ql.HullWhite)
 
         # check constraints
@@ -151,6 +151,6 @@ class TestModels(TestCase):
             res = Controller(data)
             res.process(asof_date)
             model = res.object("HW1FModel")
-            alpha, sigma1 =  model.params()
+            alpha, sigma1 = model.params()
             self.assertAlmostEqual(alpha, 0.001, 10)
             self.assertIsInstance(model, ql.HullWhite)

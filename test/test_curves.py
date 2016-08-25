@@ -20,7 +20,7 @@ _bond_sample_data = {
                               'MaturityDate': '2016-07-07',
                               'Yield': '0.00212500',
                               'SecurityId': '912796HZ Govt',
-                              'Template': T.INST_BOND_TBILL_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBILL_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.000000',
                               'CouponFrequency': None,
@@ -30,7 +30,7 @@ _bond_sample_data = {
                               'MaturityDate': '2016-09-15',
                               'Yield': '0.002625',
                               'SecurityId': '912796HE Govt',
-                              'Template': T.INST_BOND_TBILL_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBILL_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.000000',
                               'CouponFrequency': None,
@@ -40,7 +40,7 @@ _bond_sample_data = {
                               'MaturityDate': '2016-12-15',
                               'Yield': '0.003925',
                               'SecurityId': '912796JY Govt',
-                              'Template': T.INST_BOND_TBILL_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBILL_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.000000',
                               'CouponFrequency': None,
@@ -50,7 +50,7 @@ _bond_sample_data = {
                               'MaturityDate': '2017-05-25',
                               'Yield': '0.005300',
                               'SecurityId': '912796JT Govt',
-                              'Template': T.INST_BOND_TBILL_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBILL_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.008750',
                               'Currency': 'USD',
@@ -58,7 +58,7 @@ _bond_sample_data = {
                               'MaturityDate': '2018-05-31',
                               'Price': '100.292969',
                               'SecurityId': '912828R5 Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.008750',
                               'Currency': 'USD',
@@ -66,7 +66,7 @@ _bond_sample_data = {
                               'MaturityDate': '2019-06-15',
                               'Price': '100.066406',
                               'SecurityId': '912828R8 Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.013750',
                               'Currency': 'USD',
@@ -74,7 +74,7 @@ _bond_sample_data = {
                               'MaturityDate': '2021-05-31',
                               'Price': '101.136719',
                               'SecurityId': '912828R7 Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.016250',
                               'Currency': 'USD',
@@ -82,7 +82,7 @@ _bond_sample_data = {
                               'MaturityDate': '2023-05-31',
                               'Price': '101.382813',
                               'SecurityId': '912828R6 Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.016250',
                               'Currency': 'USD',
@@ -90,7 +90,7 @@ _bond_sample_data = {
                               'MaturityDate': '2026-05-15',
                               'Price': '100.101563',
                               'SecurityId': '912828R3 Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id},
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id},
                              {'AsOfDate': '2016-06-14',
                               'Coupon': '0.025000',
                               'Currency': 'USD',
@@ -98,7 +98,7 @@ _bond_sample_data = {
                               'MaturityDate': '2046-05-15',
                               'Price': '101.617188',
                               'SecurityId': '912810RS Govt',
-                              'Template': T.INST_BOND_TBOND_HELPER.id}],
+                              'Template': T.INSTRUMENT_BOND_TBOND_HELPER.id}],
     'Template': 'TermStructure.Yield.BondCurve'
 }
 
@@ -135,7 +135,7 @@ class TestCurves(TestCase):
             o = curve.discount(d)
             v = vals[i]
             self.assertAlmostEqual(o, v, 15, msg="("+str(t)+","+str(d)+","+str(o)+","+str(v)+")")
-            print t, d, o, v
+            #print t, d, o, v
 
     def test_zero_curve(self):
         data = {

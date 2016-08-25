@@ -16,7 +16,7 @@ data = [
     {
         F.OBJECT_ID.id: "BondEngine",
         F.DISCOUNT_CURVE.id: "->USD.Zero.Curve",
-        F.TEMPLATE.id: T.ENGINES_BOND_DISCOUNTING.id},
+        F.TEMPLATE.id: T.ENGINE_BOND_DISCOUNTING.id},
     {
         F.ASOF_DATE.id: '2016-01-15',
         F.COUPON.id: 0.06,
@@ -31,7 +31,7 @@ data = [
         F.END_OF_MONTH.id: False,
         F.OBJECT_ID.id: "USD.TBond",
         F.PRICING_ENGINE.id: "->BondEngine",
-        F.TEMPLATE.id: T.INST_BOND_TBOND.id}
+        F.TEMPLATE.id: T.INSTRUMENT_BOND_TBOND.id}
 ]
 
 res = Controller(data)

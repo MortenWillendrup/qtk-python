@@ -104,9 +104,9 @@ class IRCurveData(object):
                     key, security_type = fmt(field_data, "SECURITY_TYP")
                     key, security_subtype = fmt(field_data, "SECURITY_TYP2")
                     #instrument = get_instrument(asset_type, security_type, security_subtype)
-                    instrument = Template.INST_BOND_TBILL_HELPER if \
+                    instrument = Template.INSTRUMENT_BOND_TBILL_HELPER if \
                         ((data_dict[fl.COUPON_FREQ.id] is None) and (float(data_dict[fl.COUPON.id]) == 0.0)) \
-                        else Template.INST_BOND_TBOND_HELPER
+                        else Template.INSTRUMENT_BOND_TBOND_HELPER
                     data_dict[fl.TEMPLATE.id] = instrument.id
 
 

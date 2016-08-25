@@ -185,10 +185,10 @@ class Category(object):
     # Headings
     TERM_STRUCTURE = CategoryName("Term Structure")
     TIME = CategoryName("Time", "Time module")
-    ENGINES = CategoryName("Engines", "Engines module")
-    INSTRUMENTS = CategoryName("Instruments", "Instruments module")
-    REPORTS = CategoryName("Reports", "Reporting module")
-    ANALYTICS = CategoryName("Analytics", "Instrument analytics")
-    MODELS = CategoryName("Models", "Models module")
-    INDEXES = CategoryName("Indexes", "Indexes module")
+    ENGINE = CategoryName("Engine", "Engines module")
+    INSTRUMENT = CategoryName("Instrument", "Instruments module")
+    REPORT = CategoryName("Report", "Reporting module")
+    ANALYTIC = CategoryName("Analytic", "Instrument analytics")
+    MODEL = CategoryName("Model", "Models module")
+    INDEX = CategoryName("Index", "Indexes module")
 

@@ -96,9 +96,9 @@ def fmt(e, f):
 
 def get_instrument(asset_type, security_type, security_subtype):
     _instrument_map = {
-        "USGOVERNMENT.BILL": tmpl.INST_BOND_TBILL_HELPER,
-        "USGOVERNMENT.NOTE": tmpl.INST_BOND_TBOND_HELPER,
-        "USGOVERNMENT.BOND": tmpl.INST_BOND_TBOND_HELPER,
+        "USGOVERNMENT.BILL": tmpl.INSTRUMENT_BOND_TBILL_HELPER,
+        "USGOVERNMENT.NOTE": tmpl.INSTRUMENT_BOND_TBOND_HELPER,
+        "USGOVERNMENT.BOND": tmpl.INSTRUMENT_BOND_TBOND_HELPER,
     }
 
     key_members = [security_type, security_subtype]

@@ -14,7 +14,7 @@ class BondMarketReport(object):
 
 
 class BondMarketAnalyticsCreator(CreatorBase):
-    _templates = [T.ANALYTICS_MARKET_BOND]
+    _templates = [T.ANALYTIC_MARKET_BOND]
     _req_fields = [F.INSTRUMENT]
     _opt_fields = [F.PRICE, F.YIELD, F.PRICE_DIRTY, F.DISCOUNT_BASIS,
                    F.COMPOUNDING_FREQ, F.COMPOUNDING, F.YIELD_COMPOUNDING,
@@ -50,7 +50,7 @@ class BondMarketAnalyticsCreator(CreatorBase):
 
 
 class MarketReportCreator(CreatorBase):
-    _templates = [T.REPORTS_MARKET_ALL]
+    _templates = [T.REPORT_MARKET_ALL]
     _req_fields = [F.INSTRUMENT_COLLECTION, F.DISCOUNT_CURVE, F.ASOF_DATE]
     _opt_fields = [F.PRICE, F.YIELD, F.PRICE_DIRTY, F.DISCOUNT_BASIS,
                    F.COMPOUNDING_FREQ, F.COMPOUNDING]
@@ -63,9 +63,23 @@ class MarketReportCreator(CreatorBase):
                 obj = instrument_dict[F.OBJECT.id]
                 assert isinstance(obj, ql.Bond) == True
                 packet = self.data
-
-
-
-
-
         return report
+
+    def _calc_analytics(self, inst_data):
+        bond = self[F.INSTRUMENT]
+        assert isinstance(bond, ql.Bond) == True
+        discount_curve = self[F.DISCOUNT_CURVE]
+        assert isinstance(discount_curve, ql.YieldTermStructure)
+        engine = ql.DiscountingBondEngine(discount_curve)
+        bond.setPricingEngine(engine)
+        asof_date = self[F.ASOF_DATE]
+        yield_basis = inst_data.get(F.DISCOUNT_BASIS.id, discount_curve.dayCounter())
+        comp_freq = inst_data.get(F.COMPOUNDING_FREQ.id, ql.Semiannual)
+        compounding = inst_data.get(F.COMPOUNDING.id, ql.Compounded)
+
+        price = self.get(F.PRICE)
+        if price is None:
+            yld = self[F.YIELD]
+            price = bond.cleanPrice()
+        else:
+            yld = bond.bondYield()
