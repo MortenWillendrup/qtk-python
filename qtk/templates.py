@@ -14,7 +14,11 @@ class GenericTemplate(NameBase, TemplateBase):
 
     def info(self):
         creator = self.get_creator()
-        return  creator.class_info() + "\n\n" + creator.field_info()
+        return creator.class_info() + "\n\n" + creator.field_info(self)
+
+    def sample_data(self):
+        creator = self.get_creator()
+        return creator.sample_data(self)
 
     def help(self):
         print self.info()
@@ -66,6 +70,10 @@ class Template(object):
     TS_YIELD_ZERO = GenericTemplate("Zero Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_DISCOUNT = GenericTemplate("Discount Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
+
+    TS_VOLATILITY_BLACKCONSTANT = GenericTemplate("Black Constant", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
+    TS_VOLATILITY_BLACKCURVE = GenericTemplate("Black Curve", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
+    TS_VOLATILITY_BLACKSURFACE = GenericTemplate("Black Surface", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
 
     # All Models
     MODEL_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODEL, C.YIELD, convention_keys=())

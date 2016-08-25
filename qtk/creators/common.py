@@ -39,7 +39,6 @@ class CreatorBaseMeta(type):
             cls._field_info_map = {}
             cls._set_default_field_info()
             cls.set_info()
-            cls.__doc__ = cls.field_info()
 
 
 class CreatorBase(object):
@@ -158,19 +157,30 @@ class CreatorBase(object):
 
 
     @classmethod
-    def field_info(cls):
+    def field_info(cls, template):
         req_fields = cls.get_req_fields()
         opt_fields = cls.get_opt_fields()
         doc = ""
         if len(req_fields):
             doc += "**Required Fields**\n\n"
-            for f in req_fields:
+            f = req_fields[0]
+            doc += " - `%s` [*%s*]: '%s'\n" % (f.id, f.data_type.id, template.id)
+            for f in req_fields[1:]:
                 doc += " - `%s` [*%s*]: %s\n" % (f.id, f.data_type.id, cls._field_info_map[f])
         if len(opt_fields):
             doc += "\n**Optional Fields**\n\n"
             for f in opt_fields:
                 doc += " - `%s` [*%s*]: %s\n" % (f.id, f.data_type.id, cls._field_info_map[f])
         return doc
+
+    @classmethod
+    def sample_data(cls, template):
+        req_fields = cls.get_req_fields()
+        opt_fields = cls.get_opt_fields()
+        d = {req_fields[0].id: template.id}
+        d.update({f.id: "Required (%s)" % f.data_type.id for f in req_fields[1:]})
+        d.update({f.id: "Optional (%s)"% f.data_type.id for f in opt_fields})
+        return d
 
     @classmethod
     def field(cls, field, description):
@@ -185,8 +195,3 @@ class CreatorBase(object):
     def desc(cls, description):
         # override this method to add class level info
         cls._field_info_map["__doc__"] = description
-
-
-
-
-

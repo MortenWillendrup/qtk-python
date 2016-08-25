@@ -38,7 +38,9 @@ class Field(object):
     ALPHA = FieldName("Alpha", "Alpha",D.FLOAT)
     ASOF_DATE = FieldName("As Of Date", "Reference date or as of date", D.DATE)
     ASSET_CLASS = FieldName("Asset Class", "Asset class of a security", D.STRING)
+    BASIS = FieldName("Basis", "Basis", D.DAYCOUNT)
     BOND = FieldName("Bond", "A Bond Instrument", D.INSTRUMENT)
+    CALENDAR = FieldName("Calendar", "Calendar", D.CALENDAR)
     CALIBRATE = FieldName("Calibrate", "Calibration Flag", D.BOOL)
     COMPOUNDING = FieldName("Compounding", "Compounding", D.COMPOUNDING)
     COMPOUNDING_FREQ = FieldName("Compounding Frequency", "Compounding Frequency", D.FREQUENCY)
@@ -102,7 +104,8 @@ class Field(object):
     SETTLEMENT_CALENDAR = FieldName("Settlement Calendar", "Settlement Calendar", D.CALENDAR)
     SIGMA1 = FieldName("Sigma1", "Sigma first factor", D.FLOAT)
     SOLVER = FieldName("Solver", "Solver", D.STRING)
-    STRIKE = FieldName("Strike", "Strike", D.FLOAT)
+    SPOT = FieldName("Spot", "Spot price", D.FLOAT)
+    STRIKE = FieldName("Strike", "Strike price", D.FLOAT)
     TEMPLATE = FieldName("Template", "Instantiation template",
                          D.TEMPLATE)  # hardcoded field in creators/common; do not change
     TENOR = FieldName("Tenor", "Generic tenor heading", D.PERIOD)
@@ -129,4 +132,7 @@ class Field(object):
     LIST_OF_ZERO_RATES = _LIST(ZERO_RATE, D.LIST_FLOAT)
     LIST_OF_COUPONS = _LIST(COUPON, D.LIST_FLOAT)
     LIST_OF_DISCOUNT_FACTORS = _LIST(DISCOUNT_FACTOR, D.LIST_FLOAT)
+    LIST_OF_VOLATILITIES = _LIST(VOLATILITY, D.LIST_FLOAT)
+    LIST_OF_STRIKES = _LIST(STRIKE, D.LIST_FLOAT)
+    LIST_OF_LIST_OF_VOLATILITIES = _LIST(LIST_OF_VOLATILITIES, D.LIST_LIST_FLOAT)
 

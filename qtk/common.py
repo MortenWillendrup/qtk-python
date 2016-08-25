@@ -155,6 +155,7 @@ class DataType(object):
     LIST_INT = _LIST(INT, to_list(int))
     LIST_DATE = _LIST(DATE, to_list(qlf.to_date))
     LIST_FLOAT = _LIST(FLOAT, to_list(float))
+    LIST_LIST_FLOAT = _LIST(LIST_FLOAT, to_list(to_list(float)))
 
 
 class CategoryName(NameBase):
