@@ -39,6 +39,8 @@ class Field(object):
     ASOF_DATE = FieldName("As Of Date", "Reference date or as of date", D.DATE)
     ASSET_CLASS = FieldName("Asset Class", "Asset class of a security", D.STRING)
     BASIS = FieldName("Basis", "Basis", D.DAYCOUNT)
+    BLACKVOLATILITY_TERMSTRUCTURE = FieldName("Black Volatility Term Structure", "Black volatility term structure",
+                                              D.TERM_STRUCTURE_BLACKVOLATILITY)
     BOND = FieldName("Bond", "A Bond Instrument", D.INSTRUMENT)
     CALENDAR = FieldName("Calendar", "Calendar", D.CALENDAR)
     CALIBRATE = FieldName("Calibrate", "Calibration Flag", D.BOOL)
@@ -56,6 +58,9 @@ class Field(object):
     DISCOUNT_CALENDAR = FieldName("Discount Calendar", "Discount Calendar", D.CALENDAR)
     DISCOUNT_CURVE = FieldName("Discount Curve", "Discount Curve", D.TERM_STRUCTURE_YIELD)
     DISCOUNT_FACTOR = FieldName("Discount Factor", "Discount Factor", D.FLOAT)
+    DISCOUNT_RATE = FieldName("Discount Rate", "Discount Rate", D.FLOAT)
+    DIVIDEND_YIELD = FieldName("Dividend Yield", "Dividend Yield", D.TERM_STRUCTURE_YIELD)
+    DIVIDEND_RATE = FieldName("Dividend Rate", "Dividend yield rate", D.FLOAT)
     END_OF_MONTH = FieldName("End Of Month", "End of month rule", D.BOOL)
 
     EXCOUPON_PERIOD = FieldName("Ex Coupon Period", "Ex Coupon Period", D.PERIOD)
@@ -64,13 +69,14 @@ class Field(object):
     EXCOUPON_END_OF_MONTH = FieldName("Ex Coupon End Of Month", "Ex Coupon End Of Month", D.BOOL)
     EXTRAPOLATION = FieldName("Extrapolation", "Enable Extrapolation", D.BOOL)
 
-
     FACE_AMOUNT = FieldName("Face Amount", "Face amount", D.FLOAT)
     FIXED_LEG_TENOR = FieldName("Fixed Leg Tenor", "Tenor of the fixed leg", D.PERIOD)
     FIXED_LEG_BASIS = FieldName("Fixed Leg Basis", "Basis of the fixed leg", D.DAYCOUNT)
     FLOAT_LEG_TENOR = FieldName("Float Leg Tenor", "Tenor of the float leg", D.PERIOD)
     FLOAT_LEG_BASIS = FieldName("Float Leg Basis", "Basis of the float leg", D.DAYCOUNT)
     FORWARD_RATE = FieldName("Forward Rate", "Forward rate from an yield curve in decimal", D.FLOAT)
+    GENERAL_BLACKSCHOLES_PROCESS = FieldName("General Black Scholes Process", "Generalized Black Scholes Process",
+                                             D.GENERAL_BLACKSCHOLES_PROCESS)
     INDEX = FieldName("Index", "Index associated with a float leg", D.INDEX)
     INTERPOLATION_METHOD = FieldName("Interpolation Method", "Interpolation Method", D.STRING)
     INSTRUMENT_COLLECTION = FieldName("Instrument Collection", "Collection of instruments", D.LIST)
@@ -85,6 +91,7 @@ class Field(object):
                        D.OBJECT)  # hardcoded field in creators/common; do not change
     OBJECT_ID = FieldName("Object Id", "A unique name or identifier to refer "
                                        "to this dictionary data", D.STRING)
+    OPTION_TYPE = FieldName("Option Type", "Option type, call or put", D.OPTION_TYPE)
 
     PAYMENT_BASIS = FieldName("Payment Basis", "Payment Basis", D.DAYCOUNT)
     PAYMENT_CALENDAR = FieldName("Payment Calendar", "Payment calendar", D.CALENDAR)

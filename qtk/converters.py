@@ -95,7 +95,8 @@ class QuantLibConverter(object):
         "OLDCDS": ql.DateGeneration.OldCDS,
         "CDS": ql.DateGeneration.CDS
     }
-
+    _option_type_map = {"CALL": ql.Option.Call, "PUT": ql.Option.Put}
+    _option_type_set = set(_option_type_map.values())
     _dg = ql.DateGeneration
     _compounding_set = {ql.Simple, ql.Compounded, ql.Continuous, ql.SimpleThenCompounded}
     _date_generation_set = {_dg.Backward, _dg.Forward, _dg.Zero, _dg.ThirdWednesday,
@@ -234,3 +235,18 @@ class QuantLibConverter(object):
                 return rule
             else:
                 raise ValueError("Invalid date generation rule value")
+        else:
+            raise ValueError("Invalid data type for date generation rule %s!" % rule.__class__.__name__)
+
+    @classmethod
+    def to_optiontype(cls, option_type):
+        if isinstance(option_type, str):
+            option_type = option_type.upper()
+            return cls._option_type_map[option_type]
+        elif isinstance(option_type, int):
+            if option_type in cls._option_type_set:
+                return option_type
+            else:
+                raise ValueError("Invalid option type %d")
+        else:
+            raise ValueError("Invalid data type for option type %s!" % option_type.__class__.__name__)

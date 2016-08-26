@@ -21,3 +21,19 @@ class DiscountingBondEngineCreator(CreatorBase):
         cls.desc("Creates a discounting bond engine to value bond cashflows")
         cls.field(F.DISCOUNT_CURVE, "The reference yield curve to use for discounting")
 
+
+class AnalyticEuropeanEngineCreator(CreatorBase):
+    _templates = [T.ENGINE_EQUITY_ANALYTICEUROPEAN]
+    _req_fields = [F.GENERAL_BLACKSCHOLES_PROCESS]
+    _opt_fields = []
+
+    def _create(self, asof_date):
+        process = self[F.GENERAL_BLACKSCHOLES_PROCESS]
+        engine = ql.AnalyticEuropeanEngine(process)
+        return engine
+
+    @classmethod
+    def set_info(cls):
+        cls.desc("This template creates the analytic European engine to price European options.")
+        cls.field(F.GENERAL_BLACKSCHOLES_PROCESS, "The generalized Black Scholes process.")
+

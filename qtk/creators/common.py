@@ -1,6 +1,6 @@
 from qtk.conventions import Convention
 from qtk.converters import QuantLibConverter
-from qtk.fields import FieldName
+from qtk.fields import FieldName, Field as F
 
 
 class CreatorBaseMeta(type):
@@ -195,3 +195,19 @@ class CreatorBase(object):
     def desc(cls, description):
         # override this method to add class level info
         cls._field_info_map["__doc__"] = description
+
+
+class InstrumentCreatorBase(CreatorBase):
+    _base = True
+
+    def create(self, asof_date):
+        super(InstrumentCreatorBase, self).create(asof_date)
+        engine = self.get(F.PRICING_ENGINE)
+        if engine:
+            self._object.setPricingEngine(engine)
+        return self._object
+
+    @classmethod
+    def get_opt_fields(cls):
+        opt_fields = [F.OBJECT_ID] + cls._opt_fields + [F.PRICING_ENGINE]
+        return opt_fields

@@ -2,26 +2,14 @@ import QuantLib as ql
 
 from qtk.fields import Field as F
 from qtk.templates import Template as T
-from .common import CreatorBase
+from .common import InstrumentCreatorBase
 from .utils import ScheduleCreator
 
 
-# Fill the req and opt fields properly
-class _BondCreator(CreatorBase):
-    _base = True
-
-    def create(self, asof_date):
-        super(_BondCreator, self).create(asof_date)
-        engine = self.get(F.PRICING_ENGINE)
-        if engine:
-            self._object.setPricingEngine(engine)
-        return self._object
-
-
-class FixedRateBondCreator(_BondCreator):
+class FixedRateBondCreator(InstrumentCreatorBase):
     _templates = [T.INSTRUMENT_BOND_TBOND]
     _req_fields = [F.CURRENCY, F.ISSUE_DATE, F.MATURITY_DATE]
-    _opt_fields = [ F.ACCRUAL_CALENDAR, F.ACCRUAL_DAY_CONVENTION, F.TERMINATION_DAY_CONVENTION,
+    _opt_fields = [F.ACCRUAL_CALENDAR, F.ACCRUAL_DAY_CONVENTION, F.TERMINATION_DAY_CONVENTION,
                     F.END_OF_MONTH, F.DATE_GENERATION, F.COUPON_FREQ, F.SETTLEMENT_DAYS, F.FACE_AMOUNT,
                     F.COUPON, F.LIST_OF_COUPONS, F.PAYMENT_CALENDAR, F.PAYMENT_DAY_CONVENTION,
                     F.REDEMPTION, F.EXCOUPON_PERIOD, F.EXCOUPON_CALENDAR, F.EXCOUPON_DAY_CONVENTION,
@@ -68,7 +56,7 @@ class FixedRateBondCreator(_BondCreator):
         cls.desc("A template for creating a Fixed Rate Bond.")
 
 
-class ZeroCouponBondCreator(_BondCreator):
+class ZeroCouponBondCreator(InstrumentCreatorBase):
     _templates = [T.INSTRUMENT_BOND_TBILL]
     _req_fields = [F.ISSUE_DATE, F.MATURITY_DATE, F.CURRENCY]
     _opt_fields = [F.ASOF_DATE, F.SETTLEMENT_DAYS,
@@ -100,7 +88,7 @@ class ZeroCouponBondCreator(_BondCreator):
         cls.desc("A template for creating a Zero Coupon Bond.")
 
 
-class CallableFixedRateBondCreator(_BondCreator):
+class CallableFixedRateBondCreator(InstrumentCreatorBase):
     _templates = []
     _req_fields = []
     _opt_fields = []

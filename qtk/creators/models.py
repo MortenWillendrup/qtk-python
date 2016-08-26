@@ -139,7 +139,7 @@ class HullWhite1FCreator(CreatorBase, SolverMixin):
         else:
             raise ValueError(
                 "Parameter %s and %s should be provided for model or %s should be True"
-                %(F.ALPHA.id, F.SIGMA1.id, F.CALIBRATE.id))
+                % (F.ALPHA.id, F.SIGMA1.id, F.CALIBRATE.id))
 
         return model
 

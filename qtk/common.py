@@ -138,19 +138,23 @@ class DataType(object):
     DICT = TypeName("Dict", dict, dict)
     LIST = TypeName("List", list, list)
 
-    OBJECT = TypeName("Object", object, lambda x: x)
-    COMPOUNDING = TypeName("Compounding", int, qlf.to_compounding )
+    OBJECT = TypeName("Object", object)
+    CALENDAR = TypeName("Calendar", ql.Calendar, qlf.to_calendar)
+    COMPOUNDING = TypeName("Compounding", int, qlf.to_compounding)
     DATE = TypeName("Date", ql.Date, qlf.to_date)
-    FREQUENCY = TypeName("Frequency", int, qlf.to_frequency)  # this is enum for frequency
+    DATE_GENERATION = TypeName("Date Generation", int, qlf.to_date_generation)
     DAYCOUNT = TypeName("Day Count", ql.DayCounter, qlf.to_daycount)
     DAY_CONVENTION = TypeName("Day Convention", int, qlf.to_day_convention)  # this is enum for day convention
-    CALENDAR = TypeName("Calendar", ql.Calendar, qlf.to_calendar)
-    PERIOD = TypeName("Period", ql.Period, qlf.to_period)
-    DATE_GENERATION = TypeName("Date Generation", int, qlf.to_date_generation)
-    TERM_STRUCTURE_YIELD = TypeName("Term Structure Yield", ql.YieldTermStructure, lambda x: x)
-    PRICING_ENGINE = TypeName("Pricing Engine", ql.PricingEngine, lambda x: x)
+    FREQUENCY = TypeName("Frequency", int, qlf.to_frequency)  # this is enum for frequency
+    GENERAL_BLACKSCHOLES_PROCESS = TypeName("General", ql.GeneralizedBlackScholesProcess)
+
     INSTRUMENT = TypeName("Instrument", ql.Instrument, lambda x: x)
     INDEX = TypeName("Index", ql.Index)
+    OPTION_TYPE = TypeName("OptionType",int, qlf.to_optiontype)
+    PERIOD = TypeName("Period", ql.Period, qlf.to_period)
+    PRICING_ENGINE = TypeName("Pricing Engine", ql.PricingEngine, lambda x: x)
+    TERM_STRUCTURE_YIELD = TypeName("Term Structure Yield", ql.YieldTermStructure, lambda x: x)
+    TERM_STRUCTURE_BLACKVOLATILITY = TypeName("Term Structure Black Volatility", ql.BlackVolTermStructure, lambda x: x)
 
     LIST_INT = _LIST(INT, to_list(int))
     LIST_DATE = _LIST(DATE, to_list(qlf.to_date))
@@ -173,6 +177,7 @@ class Category(object):
     EQUITY = CategoryName("Equity", "Equity")
     DERIVATIVE = CategoryName("Derivative", "Derivative")
     IBOR = CategoryName("Ibor", "Ibor")
+    FOREIGN_EXCHANGE = CategoryName("Foreign Exchange", "Foreign Exchange")
 
     MAIN = CategoryName("Main", "A generic category name")
     MARKET = CategoryName("Market", "Anything market related")
@@ -192,4 +197,4 @@ class Category(object):
     ANALYTIC = CategoryName("Analytic", "Instrument analytics")
     MODEL = CategoryName("Model", "Models module")
     INDEX = CategoryName("Index", "Indexes module")
-
+    PROCESS = CategoryName("Process", "Processes module")

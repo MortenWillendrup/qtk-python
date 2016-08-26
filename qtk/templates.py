@@ -58,7 +58,8 @@ class Template(object):
     INSTRUMENT_BOND_TBOND = GenericTemplate("Treasury Bond", C.INSTRUMENT, C.BOND)
     INSTRUMENT_BOND_TBILL = GenericTemplate("Treasury Bill", C.INSTRUMENT, C.BOND)
 
-    INSTRUMENT_DERIVATIVE_EUROPEANOPTION = GenericTemplate("European Option", C.INSTRUMENT, C.DERIVATIVE)
+    INSTRUMENT_DERIVATIVE_EUROPEANOPTION = GenericTemplate("European Option", C.INSTRUMENT, C.DERIVATIVE,
+                                                           convention_keys=())
 
     # Instrument Helpers in Building Term Structures
     INSTRUMENT_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENT, C.BOND)
@@ -71,15 +72,16 @@ class Template(object):
     TS_YIELD_DISCOUNT = GenericTemplate("Discount Curve", C.TERM_STRUCTURE, C.YIELD)
     TS_YIELD_FLAT = GenericTemplate("Flat Curve", C.TERM_STRUCTURE, C.YIELD)
 
-    TS_VOLATILITY_BLACKCONSTANT = GenericTemplate("Black Constant", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
-    TS_VOLATILITY_BLACKCURVE = GenericTemplate("Black Curve", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
-    TS_VOLATILITY_BLACKSURFACE = GenericTemplate("Black Surface", C.TERM_STRUCTURE, C.VOLATILITY,convention_keys=())
+    TS_VOLATILITY_BLACKCONSTANT = GenericTemplate("Black Constant", C.TERM_STRUCTURE, C.VOLATILITY, convention_keys=())
+    TS_VOLATILITY_BLACKCURVE = GenericTemplate("Black Curve", C.TERM_STRUCTURE, C.VOLATILITY, convention_keys=())
+    TS_VOLATILITY_BLACKSURFACE = GenericTemplate("Black Surface", C.TERM_STRUCTURE, C.VOLATILITY, convention_keys=())
 
     # All Models
     MODEL_YIELD_HW1F = GenericTemplate("Hull White 1 Factor", C.MODEL, C.YIELD, convention_keys=())
 
     # All Engines
     ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
+    ENGINE_EQUITY_ANALYTICEUROPEAN = GenericTemplate("Analytic European", C.ENGINE, C.EQUITY, convention_keys=())
 
     # Time Module
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)
@@ -98,7 +100,8 @@ class Template(object):
     INDEX_IBOR_GBPLIBOR = GenericTemplate("GBP Libor", C.INDEX, C.IBOR, convention_keys=())
     INDEX_IBOR_EURLIBOR = GenericTemplate("EUR Libor", C.INDEX, C.IBOR, convention_keys=())
 
-
+    # Processes
+    PROCESS_EQUITY_BLACKSCHOLESMERTON = GenericTemplate("Black Scholes Merton", C.PROCESS, C.EQUITY,convention_keys=())
 
 
 
