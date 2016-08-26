@@ -66,6 +66,50 @@ A few points that are worth noting here.
 - Here, the `Controller` parses the data, and figures out the dependency and processes the object in the correct order
   and fulfills the dependencies behind the scenes. 
   
+## Introspection
+  
+There are a few convenience methods that provide help on how to construct the data packet. For example,
+the `help` method in the template prints out the summary and list of fields on how to construct
+the data packet for the template.
+
+    > T.TS_YIELD_BOND.help()
+    
+**Description**
+
+A template for creating yield curve by stripping bond quotes.
+
+**Required Fields**
+
+ - `Template` [*Template*]: 'TermStructure.Yield.BondCurve'
+ - `InstrumentCollection` [*List*]: Collection of instruments
+ - `AsOfDate` [*Date*]: Reference date or as of date
+ - `Country` [*String*]: Country
+ - `Currency` [*String*]: Currency
+
+**Optional Fields**
+
+ - `ObjectId` [*String*]: A unique name or identifier to refer to this dictionary data
+ - `InterpolationMethod` [*String*]: The interpolation method can be one of the following choices: LinearZero, CubicZero, FlatForward, LinearForward,LogCubicDiscount.
+ - `DiscountBasis` [*DayCount*]: Discount Basis
+ - `SettlementDays` [*Integer*]: Settlement days
+ - `DiscountCalendar` [*Calendar*]: Discount Calendar
+
+The `help` method prints the description in `info` method in Markdown format. While using IPython/Jupyter notebooks, the description
+prints in a nice looking format. One can start with a sample data packet to fill out the input fields using the `sample_data` method.
+
+    > T.TS_YIELD_BOND.sample_data()
+    
+    {'AsOfDate': 'Required (Date)',
+     'Country': 'Required (String)',
+     'Currency': 'Required (String)',
+     'DiscountBasis': 'Optional (DayCount)',
+     'DiscountCalendar': 'Optional (Calendar)',
+     'InstrumentCollection': 'Required (List)',
+     'InterpolationMethod': 'Optional (String)',
+     'ObjectId': 'Optional (String)',
+     'SettlementDays': 'Optional (Integer)',
+     'Template': 'TermStructure.Yield.BondCurve'}
+ 
   
 ## Installation
 

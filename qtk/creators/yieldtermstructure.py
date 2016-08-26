@@ -171,7 +171,7 @@ class BondYieldCurveCreator(CreatorBase):
     @classmethod
     def set_info(cls):
         cls.desc("A template for creating yield curve by stripping bond quotes.")
-        cls.field(F.INTERPOLATION_METHOD, "The interpolation method can be one of the following"
+        cls.field(F.INTERPOLATION_METHOD, "The interpolation method can be one of the following "
                                           "choices: LinearZero, CubicZero, FlatForward, LinearForward,"
                                           "LogCubicDiscount.")
 
@@ -258,8 +258,8 @@ class FlatForwardCurveCreator(CreatorBase):
     def set_info(cls):
         cls.desc("A template to create a flat forward yield curve.")
         cls.field(F.ASOF_DATE, "As of date for the yield curve to create a curve fixed "
-                               "to a given reference date. Alternately, one can provide"
-                               "settlement days and settlement calendar to do relative"
+                               "to a given reference date. Alternately, one can provide "
+                               "settlement days and settlement calendar to do relative "
                                "to calculation date.")
         cls.field(F.SETTLEMENT_DAYS, "Settlement days, and is used if asof date is not provided.")
 

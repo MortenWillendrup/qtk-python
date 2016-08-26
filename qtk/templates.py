@@ -60,6 +60,10 @@ class Template(object):
 
     INSTRUMENT_DERIVATIVE_EUROPEANOPTION = GenericTemplate("European Option", C.INSTRUMENT, C.DERIVATIVE,
                                                            convention_keys=())
+    INSTRUMENT_DERIVATIVE_AMERICANOPTION = GenericTemplate("American Option", C.INSTRUMENT, C.DERIVATIVE,
+                                                           convention_keys=())
+    INSTRUMENT_DERIVATIVE_BERMUDANOPTION = GenericTemplate("Bermudan Option", C.INSTRUMENT, C.DERIVATIVE,
+                                                           convention_keys=())
 
     # Instrument Helpers in Building Term Structures
     INSTRUMENT_BOND_TBOND_HELPER = GenericTemplate("Treasury Bond Helper", C.INSTRUMENT, C.BOND)
@@ -82,6 +86,8 @@ class Template(object):
     # All Engines
     ENGINE_BOND_DISCOUNTING = GenericTemplate("Discounting", C.ENGINE, C.BOND, convention_keys=())
     ENGINE_EQUITY_ANALYTICEUROPEAN = GenericTemplate("Analytic European", C.ENGINE, C.EQUITY, convention_keys=())
+    ENGINE_EQUITY_FDAMERICAN = GenericTemplate("FD American", C.ENGINE, C.EQUITY, convention_keys=())
+    ENGINE_EQUITY_FDBERMUDAN = GenericTemplate("FD Bermudan", C.ENGINE, C.EQUITY, convention_keys=())
 
     # Time Module
     TIME_MAIN_SCHEDULE = GenericTemplate("Schedule", C.TIME, C.MAIN)

@@ -67,6 +67,7 @@ class Field(object):
     EXCOUPON_CALENDAR = FieldName("Ex Coupon Calendar", "Ex Coupon Calendar", D.CALENDAR)
     EXCOUPON_DAY_CONVENTION = FieldName("Ex Coupon Day Convention", "Ex Coupon Day Convention", D.DAY_CONVENTION)
     EXCOUPON_END_OF_MONTH = FieldName("Ex Coupon End Of Month", "Ex Coupon End Of Month", D.BOOL)
+    START_DATE = FieldName("Start Date", "Start date", D.DATE)
     EXTRAPOLATION = FieldName("Extrapolation", "Enable Extrapolation", D.BOOL)
 
     FACE_AMOUNT = FieldName("Face Amount", "Face amount", D.FLOAT)
@@ -97,6 +98,7 @@ class Field(object):
     PAYMENT_CALENDAR = FieldName("Payment Calendar", "Payment calendar", D.CALENDAR)
     PAYMENT_DAY_CONVENTION = FieldName("Payment Day Convention", "Payment bussiness day convention",
                                        D.DAY_CONVENTION)
+    PAYOFF_AT_EXPIRY = FieldName("Payoff At Expiry", "Payoff At Expiry", D.BOOL)
     PRICE = FieldName("Price", "Price of a security", D.FLOAT)
     PRICE_DIRTY = FieldName("Price Dirty", "Boolean indicating if quote is dirty or clean", D.BOOL)
     PRICE_FLAVOR = FieldName("Price Flavor", "Flavor such as bid, ask or mid", D.STRING)

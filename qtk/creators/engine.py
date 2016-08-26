@@ -37,3 +37,34 @@ class AnalyticEuropeanEngineCreator(CreatorBase):
         cls.desc("This template creates the analytic European engine to price European options.")
         cls.field(F.GENERAL_BLACKSCHOLES_PROCESS, "The generalized Black Scholes process.")
 
+
+class FDAmericanEngineCreator(CreatorBase):
+    _templates = [T.ENGINE_EQUITY_FDAMERICAN]
+    _req_fields = [F.GENERAL_BLACKSCHOLES_PROCESS]
+    _opt_fields = []
+
+    def _create(self, asof_date):
+        process = self[F.GENERAL_BLACKSCHOLES_PROCESS]
+        engine = ql.FDAmericanEngine(process)
+        return engine
+
+    @classmethod
+    def set_info(cls):
+        cls.desc("This template creates the Finite Difference American engine to price American options.")
+        cls.field(F.GENERAL_BLACKSCHOLES_PROCESS, "The generalized Black Scholes process.")
+
+
+class FDBermudanEngineCreator(CreatorBase):
+    _templates = [T.ENGINE_EQUITY_FDBERMUDAN]
+    _req_fields = [F.GENERAL_BLACKSCHOLES_PROCESS]
+    _opt_fields = []
+
+    def _create(self, asof_date):
+        process = self[F.GENERAL_BLACKSCHOLES_PROCESS]
+        engine = ql.FDBermudanEngine(process)
+        return engine
+
+    @classmethod
+    def set_info(cls):
+        cls.desc("This template creates the Finite Difference Bermudan engine to price Bermudan options.")
+        cls.field(F.GENERAL_BLACKSCHOLES_PROCESS, "The generalized Black Scholes process.")
