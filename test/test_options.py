@@ -1,4 +1,3 @@
-import QuantLib as ql
 from unittest import TestCase
 from qtk import Controller
 
